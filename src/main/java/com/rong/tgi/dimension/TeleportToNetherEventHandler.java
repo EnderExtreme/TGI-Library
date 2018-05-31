@@ -25,17 +25,18 @@ public class TeleportToNetherEventHandler {
             	for(int obsSlot = 0; obsSlot < player.getInventoryEnderChest().getSizeInventory(); obsSlot++) {
             		ItemStack requiredStack = player.getInventoryEnderChest().getStackInSlot(obsSlot);
             		if(requiredStack != null && ItemStack.areItemsEqual(requiredStack, new ItemStack(Blocks.OBSIDIAN))) {
-            			int diaSlot = player.inventory.getSlotFor(new ItemStack(Items.DIAMOND));
-            			int lavaSlot = player.inventory.getSlotFor(new ItemStack(Items.LAVA_BUCKET));
-            			player.getInventoryEnderChest().decrStackSize(obsSlot, 8);
+            			if(player.inventory.hasItemStack(new ItemStack(Items.DIAMOND)) && player.inventory.hasItemStack(new ItemStack(Items.LAVA_BUCKET))) {
+            				player.inventory.decrStackSize(player.inventory.getSlotFor(new ItemStack(Items.DIAMOND)), 1);
+            				player.inventory.decrStackSize(player.inventory.getSlotFor(new ItemStack(Items.LAVA_BUCKET)), 1);
+            				player.getInventoryEnderChest().decrStackSize(obsSlot, 8);
             			//player.inventory.decrStackSize(diaSlot, 2);
             			//player.inventory.decrStackSize(lavaSlot, 1);
-            			boolean isEligibleToTeleport = true;
-                    	EntityPlayerMP thePlayer = (EntityPlayerMP) player;
-            			if(!ForgeHooks.onTravelToDimension(thePlayer, 0)) return;
-            			thePlayer.timeUntilPortal = 10;
-            			thePlayer.mcServer.getPlayerList().transferPlayerToDimension(thePlayer, -1, new YLevelTeleporter(thePlayer.mcServer.getWorld(0)));
+            				EntityPlayerMP thePlayer = (EntityPlayerMP) player;
+            				if(!ForgeHooks.onTravelToDimension(thePlayer, 0)) return;
+            				thePlayer.timeUntilPortal = 10;
+            				thePlayer.mcServer.getPlayerList().transferPlayerToDimension(thePlayer, -1, new YLevelTeleporter(thePlayer.mcServer.getWorld(0)));
             			//player.changeDimension(-1);
+            			}
             		} 
             	}
             }
