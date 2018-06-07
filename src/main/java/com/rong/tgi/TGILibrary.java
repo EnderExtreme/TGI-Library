@@ -5,8 +5,6 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.rong.tgi.dimension.BlockNetherEntrance;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -40,14 +38,6 @@ public class TGILibrary {
     public static TGILibrary instance;
 	public static Logger logger;
 	
-	@ObjectHolder("nether_portal")
-	public static BlockNetherEntrance nether_portal;
-	
-	@SideOnly(Side.CLIENT)
-    public static void initModels() {
-		nether_portal.initModel();
-	}
-	
 	public static final String MODID = "tgilibrary";
 	public static final String MODNAME = "TGI Library";
 	public static final String VERSION = "1.1";
@@ -68,16 +58,6 @@ public class TGILibrary {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent e) {
     	//MinecraftForge.EVENT_BUS.register(new TeleportToNetherEventHandler());
-    }
-    
-    @SubscribeEvent
-    public static void registerBlocks(RegistryEvent.Register<Block> event) {
-    	event.getRegistry().register(new BlockNetherEntrance().setUnlocalizedName("nether_portal"));
-    }
-    
-    @SubscribeEvent
-    public static void registerItems(RegistryEvent.Register<Item> event) {
-        event.getRegistry().register(new ItemBlock(TGILibrary.nether_portal).setRegistryName("nether_portal"));
     }
 }
 
