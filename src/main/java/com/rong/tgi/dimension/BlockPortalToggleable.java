@@ -55,9 +55,7 @@ public class BlockPortalToggleable extends BlockPortal {
     }
     
     @Override
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-    	
-    }
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) { }
     
     @Override
     @SideOnly(Side.CLIENT)
@@ -81,7 +79,7 @@ public class BlockPortalToggleable extends BlockPortal {
                 d2 = (double)pos.getZ() + 0.5D + 0.25D * (double)j;
                 d5 = (double)(rand.nextFloat() * 2.0F * (float)j);
             }
-            if(stateIn == stateIn.withProperty(FIXED, Boolean.valueOf(true))) { worldIn.spawnParticle(EnumParticleTypes.PORTAL, d0, d1, d2, d3, d4, d5); }
+            if(stateIn == stateIn.withProperty(FIXED, true)) { worldIn.spawnParticle(EnumParticleTypes.PORTAL, d0, d1, d2, d3, d4, d5); }
             else { worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d0, d1, d2, d3, d4, d5); }   
         }
     }
@@ -93,13 +91,13 @@ public class BlockPortalToggleable extends BlockPortal {
     
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(AXIS, (meta & 3) == 2 ? EnumFacing.Axis.Z : EnumFacing.Axis.X).withProperty(FIXED, Boolean.valueOf((meta & 4) != 0));
+        return this.getDefaultState().withProperty(AXIS, (meta & 3) == 2 ? EnumFacing.Axis.Z : EnumFacing.Axis.X).withProperty(FIXED, (meta & 4) != 0);
     }
     
     @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
-        i = i | getMetaForAxis((EnumFacing.Axis)state.getValue(AXIS));
+        i = i | getMetaForAxis(state.getValue(AXIS));
         if ((state.getValue(FIXED))) {
             i |= 4;
         }

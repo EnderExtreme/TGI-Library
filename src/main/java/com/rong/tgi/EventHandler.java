@@ -42,7 +42,7 @@ public class EventHandler {
     public static void playerWarmthTick(TickEvent.PlayerTickEvent event) {
         IWarmth warmth = event.player.getCapability(WarmthProvider.WARMTH_CAPABILITY, null);
         BlockPos playerPos = event.player.getPosition();
-        float biomeTemp = event.player.world.getBiome(pos).getTemperature(pos);
+        float biomeTemp = event.player.world.getBiome(playerPos).getTemperature(playerPos);
         if(event.player.world.isRemote) {
             //Default Warmth
             if(event.player.isCreative() && event.player.getIsInvulnerable()) {
@@ -74,7 +74,7 @@ public class EventHandler {
 			event.player.setPortal(spawnPos);
 			if(event.player.changeDimension(-1) != null) {
 				while(event.player.world.getBlockState(spawnPos).isNormalCube()){
-					event.player.world.setBlockToAir(spawnPos); /*x  y  z*/
+					event.player.world.setBlockToAir(spawnPos);
 					event.player.world.setBlockToAir(spawnPos.add(1, 0, 1));
 					event.player.world.setBlockToAir(spawnPos.add(1, 1, 1));
 					event.player.world.setBlockToAir(spawnPos.add(1, 2, 1));
