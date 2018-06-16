@@ -2,9 +2,9 @@ package com.rong.tgi;
 
 import java.util.logging.Logger;
 
-import com.rong.tgi.warmth.IWarmth;
-import com.rong.tgi.warmth.Warmth;
-import com.rong.tgi.warmth.WarmthStorage;
+import com.rong.tgi.temperature.handling.ITemperature;
+import com.rong.tgi.temperature.handling.Temperature;
+import com.rong.tgi.temperature.handling.TemperatureStorage;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.*;
@@ -41,7 +41,7 @@ public class TGILibrary {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent e) {
-        CapabilityManager.INSTANCE.register(IWarmth.class, new WarmthStorage(), Warmth.class);
+        CapabilityManager.INSTANCE.register(ITemperature.class, new TemperatureStorage(), Temperature.class);
     }
 
     @Mod.EventHandler
