@@ -2,6 +2,7 @@ package com.rong.tgi.temperature.recipes;
 
 import com.rong.tgi.Helper;
 import com.rong.tgi.temperature.items.ItemCoolingPad;
+import com.rong.tgi.temperature.items.ItemHeatingPad;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
@@ -11,19 +12,19 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
-public class RecipesCoolingPad extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
+public class RecipesHeatingPad extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
     @Override
     public boolean matches(InventoryCrafting craftingInv, World worldIn) {
         ItemStack armorPieces = ItemStack.EMPTY;
-        ItemStack coolingPad = ItemStack.EMPTY;
+        ItemStack heatingPad = ItemStack.EMPTY;
         for (int i = 0; i < craftingInv.getSizeInventory(); ++i) {
             ItemStack stack = craftingInv.getStackInSlot(i);
             if(!stack.isEmpty()) {
-                if(stack.getItem() instanceof ItemCoolingPad) {
-                    if(!coolingPad.isEmpty()) {
+                if(stack.getItem() instanceof ItemHeatingPad) {
+                    if(!heatingPad.isEmpty()) {
                         return false;
                     }
-                    coolingPad = stack;
+                    heatingPad = stack;
                 } else {
                     if(!(stack.getItem() instanceof ItemArmor)) {
                         return false;
@@ -36,18 +37,18 @@ public class RecipesCoolingPad extends IForgeRegistryEntry.Impl<IRecipe> impleme
                 }
             }
         }
-        return (!armorPieces.isEmpty() && !coolingPad.isEmpty()) && (armorPieces != coolingPad);
+        return (!armorPieces.isEmpty() && !heatingPad.isEmpty()) && (armorPieces != heatingPad);
     }
 
     @Override
     public ItemStack getCraftingResult(InventoryCrafting craftingInv) {
         ItemStack armorPieces = ItemStack.EMPTY;
-        ItemStack coolingPad = ItemStack.EMPTY;
+        ItemStack heatingPad = ItemStack.EMPTY;
         for(int i = 0; i < craftingInv.getSizeInventory(); ++i) {
             ItemStack stack = craftingInv.getStackInSlot(i);
             if(!stack.isEmpty()) {
-                if(stack.getItem() instanceof ItemCoolingPad) {
-                    coolingPad = stack;
+                if(stack.getItem() instanceof ItemHeatingPad) {
+                    heatingPad = stack;
                 }
                 else {
                     if(stack.getItem() instanceof ItemArmor) {
@@ -56,9 +57,9 @@ public class RecipesCoolingPad extends IForgeRegistryEntry.Impl<IRecipe> impleme
                 }
             }
         }
-        if(!armorPieces.isEmpty() && !coolingPad.isEmpty()) {
+        if(!armorPieces.isEmpty() && !heatingPad.isEmpty()) {
             ItemStack result = armorPieces.copy();
-            Helper.setPad(result, coolingPad);
+            Helper.setPad(result, heatingPad);
             return result;
         }
         return ItemStack.EMPTY;

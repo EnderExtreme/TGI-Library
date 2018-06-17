@@ -2,7 +2,7 @@ package com.rong.tgi.temperature.handling;
 
 public class Temperature implements ITemperature {
 
-    private float temperature = 26.0F;
+    private float temperature = 0.0F;
 
     public void delTemperature(float points) {
         this.temperature -= points;
