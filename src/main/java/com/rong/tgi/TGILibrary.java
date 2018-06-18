@@ -1,10 +1,11 @@
 package com.rong.tgi;
 
+import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
-import com.rong.tgi.temperature.handling.ITemperature;
-import com.rong.tgi.temperature.handling.Temperature;
-import com.rong.tgi.temperature.handling.TemperatureStorage;
+import com.rong.tgi.temperature.TemperatureEventHandler;
+import com.rong.tgi.temperature.handling.*;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.*;
@@ -42,11 +43,8 @@ public class TGILibrary {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent e) {
         CapabilityManager.INSTANCE.register(ITemperature.class, new TemperatureStorage(), Temperature.class);
-    }
-
-    @Mod.EventHandler
-    public void loaded(FMLLoadCompleteEvent e) {
-
+        MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
+        MinecraftForge.EVENT_BUS.register(new TemperatureEventHandler());
     }
 }
 

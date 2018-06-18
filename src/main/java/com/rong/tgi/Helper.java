@@ -24,4 +24,9 @@ public class Helper {
             stack.setTagCompound(new NBTTagCompound());
         return stack.getTagCompound();
     }
+
+    public static boolean checkIfNBTNull(ItemStack stack, String key) {
+        return getStackNBTSafe(stack).hasKey(key);
+    }
+
 }

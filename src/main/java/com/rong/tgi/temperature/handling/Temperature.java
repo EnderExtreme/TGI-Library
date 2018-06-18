@@ -2,21 +2,15 @@ package com.rong.tgi.temperature.handling;
 
 public class Temperature implements ITemperature {
 
-    private float temperature = 0.0F;
+    private float temperature = 1.0F;
 
-    public void delTemperature(float points) {
-        this.temperature -= points;
-    }
+    public void decrease(float points) { this.temperature -= points; if(this.temperature < -100F) this.temperature = -100F; }
 
-    public void addTemperature(float points) {
-        this.temperature += points;
-    }
+    public void increase(float points) { this.temperature += points; if(this.temperature > 100F) this.temperature = 100F; }
 
-    public void setTemperature(float points) {
+    public void set(float points) {
         this.temperature = points;
     }
 
-    public float getTemperature() {
-        return this.temperature;
-    }
+    public float get() { return this.temperature; }
 }
