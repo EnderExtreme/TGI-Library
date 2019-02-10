@@ -1,0 +1,12 @@
+skillable.unlock.attributes.passive_defense=Passive Resistance
+skillable.unlock.attributes.passive_defense.desc=Grants a Passive Resistance-Boost, Scales with Defense.
+skillable.unlock.attributes.passive_mining=Passive Mining-Speed
+skillable.unlock.attributes.passive_mining.desc=Grants a Passive Mining-Speed Boost, Scales with Mining.
+
+enchantment.heated = Heating Level
+enchantment.cooled = Cooling Level
+
+tc.aspect.Cosmos=Space, Stars
+tc.research_category.CELESTIAL=Celestial Sorcery
+tgilibrary.research.constellationpapers.title=Stars Above
+tgilibrary:research.constellationpapers.0=After the celestial investigations you did at the very start of your Thaumaturgical journey; surely there must be more than just bonuses to your research. Can you find anything relating to the skies except for just celestial cycles of the moon? I mean, those stars seem very prominent where the dragon once flew. 

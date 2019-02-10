@@ -1,0 +1,36 @@
+{
+	"entries":[
+		{
+			"key": "BENEATH",
+			"name": "tgilibrary.research.beneath.title",
+			"icons": ["beneath:teleporterbeneath"],
+			"category": "ARTIFICE",
+			"siblings": ["NETHER"],
+			"meta": ["ROUND","SPIKY"],
+			"location": [8, 4],
+			"stages": [
+					{
+                        "text": "research.BENEATH.stage.1",
+                        "required_research":["m_deepdown"],
+						"required_item":["minecraft:obsidian"]
+					},
+			]
+	    },
+		{
+			"key": "NETHER",
+			"name": "tgilibrary.research.nether.title",
+			"icons": ["minecraft:nether_portal"],
+			"category": "ARTIFICE",
+			"parents": ["BENEATH"],
+			"meta": ["ROUND","SPIKY"],
+			"location": [8, 6],
+			"stages": [
+					{
+                        "text": "research.NETHER.stage.1",
+						"required_item":["minecraft:obsidian"]
+					},
+			]
+	    }
+	]
+}
+		

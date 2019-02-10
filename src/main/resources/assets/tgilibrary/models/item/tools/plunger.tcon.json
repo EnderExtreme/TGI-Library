@@ -1,0 +1,6 @@
+{
+    "textures": {
+        "layer0": "tgilibrary:items/plunger/handle",
+        "layer1": "tgilibrary:items/plunger/head"
+    }
+}

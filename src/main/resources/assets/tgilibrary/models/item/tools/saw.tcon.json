@@ -1,0 +1,6 @@
+{
+    "textures": {
+        "layer0": "tgilibrary:items/saw/handle",
+        "layer1": "tgilibrary:items/saw/head"
+    }
+}
