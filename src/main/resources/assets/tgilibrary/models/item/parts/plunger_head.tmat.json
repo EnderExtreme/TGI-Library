@@ -1,9 +1,0 @@
-{
-    "textures": {
-        "layer0": "tgilibrary:items/plunger/head"
-    },
-    "offset": {
-        "x": -3,
-        "y": 3
-    }
-}

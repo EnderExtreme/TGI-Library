@@ -9,7 +9,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.rong.tgi.entities.EntityManaPearl;
 import com.rong.tgi.gt.GTRecipes;
-import com.rong.tgi.temperature.recipes.TemperatureRecipes;
 
 import WayofTime.bloodmagic.api.impl.BloodMagicAPI;
 import WayofTime.bloodmagic.core.data.SoulNetwork;
@@ -21,7 +20,6 @@ import gregtech.api.items.metaitem.MetaItem;
 import gregtech.api.unification.material.type.DustMaterial;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.common.items.MetaItems;
-import gregtech.common.items.MetaTool;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEndPortalFrame;

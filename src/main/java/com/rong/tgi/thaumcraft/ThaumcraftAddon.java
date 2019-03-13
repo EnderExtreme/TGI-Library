@@ -49,21 +49,6 @@ public class ThaumcraftAddon {
 		appendAspects(new ItemStack(Blocks.END_BRICKS), new AspectList().add(SPACE, 3));
 		appendAspects(new ItemStack(Blocks.END_ROD), new AspectList().add(SPACE, 2));
 		appendAspects(new ItemStack(Blocks.END_BRICKS), new AspectList().add(SPACE, 3));
-		
-		ThaumcraftApi.registerObjectTag(MetaItems.FLUID_CELL.getStackForm(), new AspectList().add(Aspect.VOID, 5).add(Aspect.METAL, 24));
-		
-		for(Material mat : Material.MATERIAL_REGISTRY) {
-			if(mat.hasFlag(DustMaterial.MatFlags.GENERATE_ORE)) {
-				ThaumcraftApi.registerObjectTag(OrePrefix.oreEndstone + StringUtils.capitalize(mat.getUnlocalizedName()), new AspectList().add(Aspect.DARKNESS, 5).add(Aspect.ENTROPY, 2).add(SPACE, 2));
-				ThaumcraftApi.registerObjectTag(OrePrefix.oreNetherrack + StringUtils.capitalize(mat.getUnlocalizedName()), new AspectList().add(Aspect.EARTH, 5).add(Aspect.FIRE, 2).add(Aspect.ENTROPY, 2));
-				ThaumcraftApi.registerObjectTag(OrePrefix.oreGravel + StringUtils.capitalize(mat.getUnlocalizedName()), new AspectList().add(Aspect.EARTH, 5).add(Aspect.ENTROPY, 3));
-				ThaumcraftApi.registerObjectTag(OrePrefix.oreSand + StringUtils.capitalize(mat.getUnlocalizedName()), new AspectList().add(Aspect.EARTH, 5).add(Aspect.ENTROPY, 3));		
-			}
-			if(mat.hasFlag(DustMaterial.MatFlags.GENERATE_PLATE | SolidMaterial.MatFlags.GENERATE_ROD)) {
-				ThaumcraftApi.registerObjectTag(OrePrefix.gearSmall + StringUtils.capitalize(mat.getUnlocalizedName()), new AspectList().add(Aspect.METAL, 5).add(Aspect.MECHANISM, 5));
-				ThaumcraftApi.registerObjectTag(OrePrefix.gear + StringUtils.capitalize(mat.getUnlocalizedName()), new AspectList().add(Aspect.METAL, 10).add(Aspect.MECHANISM, 10));
-			}
-		}
 	}
 	
 	public static void initScannables() {
@@ -105,12 +90,6 @@ public class ThaumcraftAddon {
 		ThaumcraftApi.addCrucibleRecipe(new ResourceLocation(TGILibrary.MODID, "mana_ore_7"), new CrucibleRecipe("MANAORE", new ItemStack(Item.getByNameOrId("thermalfoundation:material"), 1, 136), "oreGravelIron", new AspectList().add(Aspect.ALCHEMY, 2)));
 		
 		ThaumcraftApi.addCrucibleRecipe(new ResourceLocation(TGILibrary.MODID, "imbued_marble"), new CrucibleRecipe("IMBUEDMARBLE", new ItemStack(Item.getByNameOrId("astralsorcery:blockmarble"), 2), "stoneMarble", new AspectList().add(Aspect.MAGIC, 2)));
-
-		for(Material m : Material.MATERIAL_REGISTRY) {
-			if(m.hasFlag(DustMaterial.MatFlags.GENERATE_ORE)) {
-				oreHandling(m);
-			}
-		}
 		//ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation(TGILibrary.MODID + Constellations.discidia.getUnlocalizedName() + "ConstellationPaper"), new InfusionRecipe("DISCIDIAPAPER", null, 0, null, null, null));
 	}
 	
@@ -121,23 +100,5 @@ public class ThaumcraftAddon {
 				toAdd = toAdd.add(al);
 		}
 		CommonInternals.objectTags.put(CommonInternals.generateUniqueItemstackId(stack), toAdd);
-	}
-	
-	private static void oreHandling(Material material) {
-		//ThaumcraftApi.addCrucibleRecipe(new ResourceLocation(TGILibrary.MODID, "metal_purification" + material.getLocalizedName().toLowerCase()), new CrucibleRecipe("METALPURIFICATION", OreDictUnifier.get(OrePrefix.cluster, material), OreDictUnifier.get(OrePrefix.ore, material), new AspectList().merge(Aspect.METAL, 5).merge(Aspect.ORDER, 5)));
-		//ThaumcraftApi.addCrucibleRecipe(new ResourceLocation(TGILibrary.MODID, "end_metal_purification" + material.getLocalizedName().toLowerCase()), new CrucibleRecipe("METALPURIFICATION", OreDictUnifier.get(OrePrefix.cluster, material), OreDictUnifier.get(OrePrefix.oreEndstone, material), new AspectList().merge(Aspect.METAL, 5).merge(Aspect.ORDER, 5)));
-		//ThaumcraftApi.addCrucibleRecipe(new ResourceLocation(TGILibrary.MODID, "gravel_metal_purification" + material.getLocalizedName().toLowerCase()), new CrucibleRecipe("METALPURIFICATION", OreDictUnifier.get(OrePrefix.cluster, material), OreDictUnifier.get(OrePrefix.oreGravel, material), new AspectList().merge(Aspect.METAL, 5).merge(Aspect.ORDER, 5)));
-		//ThaumcraftApi.addCrucibleRecipe(new ResourceLocation(TGILibrary.MODID, "sand_metal_purification" + material.getLocalizedName().toLowerCase()), new CrucibleRecipe("METALPURIFICATION", OreDictUnifier.get(OrePrefix.cluster, material), OreDictUnifier.get(OrePrefix.oreSand, material), new AspectList().merge(Aspect.METAL, 5).merge(Aspect.ORDER, 5)));
-		//ThaumcraftApi.addCrucibleRecipe(new ResourceLocation(TGILibrary.MODID, "nether_metal_purification" + material.getLocalizedName().toLowerCase()), new CrucibleRecipe("METALPURIFICATION", OreDictUnifier.get(OrePrefix.cluster, material), OreDictUnifier.get(OrePrefix.oreNetherrack, material), new AspectList().merge(Aspect.METAL, 5).merge(Aspect.ORDER, 5)));
-		ThaumcraftApi.addCrucibleRecipe(new ResourceLocation(TGILibrary.MODID, "metal_purification" + material.getLocalizedName().toLowerCase()), new CrucibleRecipe("METALPURIFICATION", OreDictUnifier.get(OrePrefix.cluster, material), "ore" + material.toCamelCaseString(), new AspectList().merge(Aspect.METAL, 5).merge(Aspect.ORDER, 5)));
-		ThaumcraftApi.addCrucibleRecipe(new ResourceLocation(TGILibrary.MODID, "bedrock_metal_purification" + material.getLocalizedName().toLowerCase()), new CrucibleRecipe("METALPURIFICATION", OreDictUnifier.get(OrePrefix.cluster, material, 2), "oreBedrock" + material.toCamelCaseString(), new AspectList().merge(Aspect.METAL, 5).merge(Aspect.ORDER, 5)));
-		ThaumcraftApi.addCrucibleRecipe(new ResourceLocation(TGILibrary.MODID, "end_metal_purification" + material.getLocalizedName().toLowerCase()), new CrucibleRecipe("METALPURIFICATION", OreDictUnifier.get(OrePrefix.cluster, material), "oreGravel" + material.toCamelCaseString(), new AspectList().merge(Aspect.METAL, 5).merge(Aspect.ORDER, 5)));
-		ThaumcraftApi.addCrucibleRecipe(new ResourceLocation(TGILibrary.MODID, "gravel_metal_purification" + material.getLocalizedName().toLowerCase()), new CrucibleRecipe("METALPURIFICATION", OreDictUnifier.get(OrePrefix.cluster, material), "oreEndstone" + material.toCamelCaseString(), new AspectList().merge(Aspect.METAL, 5).merge(Aspect.ORDER, 5)));
-		ThaumcraftApi.addCrucibleRecipe(new ResourceLocation(TGILibrary.MODID, "sand_metal_purification" + material.getLocalizedName().toLowerCase()), new CrucibleRecipe("METALPURIFICATION", OreDictUnifier.get(OrePrefix.cluster, material), "oreSand" + material.toCamelCaseString(), new AspectList().merge(Aspect.METAL, 5).merge(Aspect.ORDER, 5)));
-		ThaumcraftApi.addCrucibleRecipe(new ResourceLocation(TGILibrary.MODID, "sandstone_metal_purification" + material.getLocalizedName().toLowerCase()), new CrucibleRecipe("METALPURIFICATION", OreDictUnifier.get(OrePrefix.cluster, material), "oreSandstone" + material.toCamelCaseString(), new AspectList().merge(Aspect.METAL, 5).merge(Aspect.ORDER, 5)));
-		ThaumcraftApi.addCrucibleRecipe(new ResourceLocation(TGILibrary.MODID, "redsandstone_metal_purification" + material.getLocalizedName().toLowerCase()), new CrucibleRecipe("METALPURIFICATION", OreDictUnifier.get(OrePrefix.cluster, material), "oreRedSandstone" + material.toCamelCaseString(), new AspectList().merge(Aspect.METAL, 5).merge(Aspect.ORDER, 5)));
-		ThaumcraftApi.addCrucibleRecipe(new ResourceLocation(TGILibrary.MODID, "nether_metal_purification" + material.getLocalizedName().toLowerCase()), new CrucibleRecipe("METALPURIFICATION", OreDictUnifier.get(OrePrefix.cluster, material), "oreNetherrack" + material.toCamelCaseString(), new AspectList().merge(Aspect.METAL, 5).merge(Aspect.ORDER, 5)));
-	
-		Utils.addSpecialMiningResult(OreDictUnifier.get(OrePrefix.ore, material), OreDictUnifier.get(OrePrefix.cluster, material), 1.0F);	
 	}
 }

@@ -6,7 +6,6 @@ import com.rong.tgi.ClientProxy;
 import com.rong.tgi.CommonProxy;
 import com.rong.tgi.entities.EntityManaPearl;
 import com.rong.tgi.forestry.CharcoalShit;
-import com.rong.tgi.gt.GTMTEs;
 import com.rong.tgi.gt.GTRecipes;
 import com.rong.tgi.reskillable.traits.TraitPassiveDefense;
 import com.rong.tgi.reskillable.traits.TraitPassiveMining;
@@ -55,14 +54,12 @@ public class TGILibrary {
 	
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		CapabilityManager.INSTANCE.register(ITemperature.class, new TemperatureStorage(), Temperature.class);
-		GTMTEs.init();		
+		CapabilityManager.INSTANCE.register(ITemperature.class, new TemperatureStorage(), Temperature.class);	
 	}
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
 		clientProxy.initModels();
-		clientProxy.init();
 		
 		ThaumcraftAddon.initAspects();
 		ThaumcraftAddon.initScannables();

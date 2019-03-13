@@ -2,9 +2,6 @@ package com.rong.tgi;
 
 import com.rong.tgi.entities.EntityManaPearl;
 import com.rong.tgi.entities.RenderManaPearl;
-
-import codechicken.lib.texture.TextureUtils;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -17,9 +14,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import slimeknights.tconstruct.common.ModelRegisterUtil;
-import slimeknights.tconstruct.library.TinkerRegistryClient;
-import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;
 
 public class ClientProxy extends CommonProxy {
 	
@@ -31,22 +25,4 @@ public class ClientProxy extends CommonProxy {
 	@SubscribeEvent
 	protected void registerModels(ModelRegistryEvent event) {
 	}
-
-	//Rod -> Main Parts (heads) -> Extras (plates/binding) -> 2nd rod
-	public void init() {
-		//Plunger
-		if(CommonProxy.plunger != null) {
-			ToolBuildGuiInfo plungerInfo = new ToolBuildGuiInfo(CommonProxy.plunger);
-			plungerInfo.addSlotPosition(33 - 21, 42 + 13); //Rod
-			plungerInfo.addSlotPosition(33 + 9, 42 - 15); //Plunger Head
-			TinkerRegistryClient.addToolBuilding(plungerInfo);
-		}
-		if(CommonProxy.saw != null) {
-			ToolBuildGuiInfo plungerInfo = new ToolBuildGuiInfo(CommonProxy.saw);
-			plungerInfo.addSlotPosition(33 - 21, 42 + 13); //Rod
-			plungerInfo.addSlotPosition(33 + 9, 42 - 15); //Saw Head
-			TinkerRegistryClient.addToolBuilding(plungerInfo);
-		}
-	}
-	
 }

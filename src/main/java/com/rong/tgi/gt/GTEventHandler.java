@@ -1,7 +1,5 @@
 package com.rong.tgi.gt;
 
-import com.rong.tgi.temperature.recipes.TemperatureRecipes;
-
 import gregtech.api.items.metaitem.MetaItem;
 import gregtech.api.unification.material.type.DustMaterial;
 import gregtech.api.unification.material.type.Material;
@@ -20,11 +18,10 @@ public class GTEventHandler {
 	
 	@SubscribeEvent(priority = EventPriority.LOW)
 	public static void recipesLow(Register<IRecipe> event) {  
-		GTRecipes.advancedRocketryPort();
+		GTRecipes.advancedRocketryInit();
 		GTRecipes.immersiveEngineeringAddon();
-		GTRecipes.fuckGA();
+		GTRecipes.init();
 		GTRecipes.dyes();
-		TemperatureRecipes.equipPads();
 	}
 
 }
