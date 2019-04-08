@@ -3,6 +3,7 @@ package com.rong.tgi;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.Set;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
@@ -52,6 +53,7 @@ import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -61,6 +63,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
@@ -92,10 +96,15 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistryModifiable;
 import thaumcraft.api.capabilities.IPlayerKnowledge;
 import thaumcraft.api.capabilities.ThaumcraftCapabilities;
+import thaumcraft.api.items.ItemsTC;
+import thaumcraft.common.lib.CommandThaumcraft;
 import thebetweenlands.common.herblore.elixir.ElixirEffectRegistry;
 import twilightforest.advancements.TFAdvancements;
 import twilightforest.block.BlockTFPortal;
 import twilightforest.block.TFBlocks;
+import vazkii.botania.common.block.BlockFloatingSpecialFlower;
+import vazkii.botania.common.block.BlockSpecialFlower;
+import vazkii.botania.common.block.tile.TileSpecialFlower;
 import zmaster587.advancedRocketry.api.AdvancedRocketryItems;
 
 @Mod.EventBusSubscriber
@@ -195,6 +204,39 @@ public class EventHandler {
 					event.setCanHarvest(false);
 				}
 			}
+		}
+	}
+	
+	@SubscribeEvent
+	public static void shareTCProgression(PlayerInteractEvent.EntityInteract event) {
+		EntityPlayer self = event.getEntityPlayer();
+		Entity tbdTarget = event.getTarget();
+		ItemStack stack = event.getItemStack();
+		ItemStack thaumonomicon = new ItemStack(ItemsTC.thaumonomicon);
+		if(tbdTarget instanceof EntityPlayer && stack.isItemEqual(thaumonomicon)) {
+			EntityPlayer target = (EntityPlayer)tbdTarget;
+			if(target.getHeldItemMainhand().isItemEqual(thaumonomicon)) {
+				event.setCancellationResult(EnumActionResult.SUCCESS);
+				if(!event.getWorld().isRemote) {
+					Set<String> researchesDone = ThaumcraftCapabilities.getKnowledge(self).getResearchList();
+					for(String researchKey : researchesDone) {
+						CommandThaumcraft.giveRecursiveResearch(target, researchKey);
+						ThaumcraftCapabilities.getKnowledge(target).sync((EntityPlayerMP)target);
+					}	
+				}
+				else {
+					String selfName = self.getGameProfile().getName();
+					String targetName = target.getGameProfile().getName();
+					self.sendStatusMessage(new TextComponentTranslation(I18n.translateToLocalFormatted("tgi.knowledge.selfSent", targetName)), true);
+					target.sendStatusMessage(new TextComponentTranslation(I18n.translateToLocalFormatted("tgi.knowledge.targetReceived", selfName)), true);
+				}
+			}
+			else {
+				event.setCancellationResult(EnumActionResult.PASS);
+			}
+		}
+		else {
+			event.setCancellationResult(EnumActionResult.PASS);
 		}
 	}
 	
@@ -352,13 +394,45 @@ public class EventHandler {
 	}
 
 	@SubscribeEvent
-	public static void endPortalShinanigans(PlayerInteractEvent.RightClickBlock event) {		
+	public static void endPortalShinanigans(PlayerInteractEvent.RightClickBlock event) {				
 		Random itemRand = new Random();
 		World world = event.getWorld();
 		IBlockState state = world.getBlockState(event.getPos());
 		ItemStack stack = event.getItemStack();
 		BlockPos pos = event.getPos();
-
+		EntityPlayer player = event.getEntityPlayer();
+		ItemStack mainItem = player.getHeldItemMainhand();
+		
+		if((player.isSneaking() || event.getHand() != EnumHand.MAIN_HAND) && 
+				(state.getBlock() instanceof BlockSpecialFlower && 
+						!(state.getBlock() instanceof BlockFloatingSpecialFlower))) {
+			if(world.getTileEntity(pos) instanceof TileSpecialFlower) {
+				TileSpecialFlower tileFlower = (TileSpecialFlower)world.getTileEntity(pos);
+				if(tileFlower != null && tileFlower.subTileName.equals("puredaisy") && 
+						(mainItem.isEmpty() || !(mainItem.getItem() instanceof ItemBlock))) {
+					float hitX = pos.getX();
+	                float hitY = pos.getY();
+					float hitZ = pos.getZ();
+					ItemBlock itemBlock = (ItemBlock)mainItem.getItem();
+					Block block = itemBlock.getBlock();
+					BlockPos start = pos.add(1, 0, 1);
+					BlockPos stop = pos.add(-1, 0, -1);
+					for(BlockPos potential : BlockPos.getAllInBox(stop, start)) {
+	                    if(potential.equals(pos) && (player.getDistance((double) pos.getX(), 
+	                    		(double) pos.getY(), (double) pos.getZ()) < 1.3 && 
+	                    		player.getPosition().getY() == pos.getY()) && (block.isReplaceable(world, potential) || 
+	                    				block.isAir(state, world, potential)) && block.canPlaceBlockAt(world, potential)) {
+	                    	IBlockState placingState = block.getStateForPlacement(world, pos, event.getFace(), hitX, hitY, hitZ, mainItem.getMetadata(), player, event.getHand());
+	                        itemBlock.placeBlockAt(mainItem, player, world, potential, event.getFace(), hitX, hitY, hitZ, placingState);
+	                        if(!player.capabilities.isCreativeMode) { mainItem.shrink(1); }
+	                        event.setCanceled(true);
+	                        event.setCancellationResult(EnumActionResult.SUCCESS);
+	                    }
+					}
+				}
+			}
+		}
+		
         if(stack.isItemEqual(new ItemStack(Item.getByNameOrId("botania:manaresource"), 1, 1)) && event.getEntityPlayer().canPlayerEdit(pos.offset(event.getFace()), event.getFace(), stack) && state.getBlock() == Blocks.END_PORTAL_FRAME && !(state.getValue(BlockEndPortalFrame.EYE)).booleanValue()) {
             if(world.isRemote) {}
             else {
