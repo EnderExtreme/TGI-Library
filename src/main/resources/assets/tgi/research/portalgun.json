@@ -1,0 +1,37 @@
+{
+    "entries":[
+        {
+            "key": "MINIATURE_BLACK_HOLE",
+            "name": "tgi.research.portalgun_blackhole.title",
+            "icons": ["portalgun:item_miniature_black_hole"],
+            "category": "ARTIFICE",
+            "parents": ["MIRRORHAND", "BASEELDRITCH"],
+            "siblings": ["PORTALGUN"],
+            "location": [-9, 1],
+            "stages": [
+                {
+                    "text": "tgi:research.portalgun_blackhole.0",
+                    "recipes": ["tgi:miniature_black_hole"],
+                    "warp": 1
+                }
+            ]
+        },
+        {
+            "key": "PORTALGUN",
+            "name": "tgi.research.portalgun.title",
+            "icons": ["portalgun:item_portalgun;1;0"],
+            "category": "ARTIFICE",
+            "parents": ["MINIATURE_BLACK_HOLE"],
+            "location": [-9, -2],
+            "stages": [
+                {
+                    "text": "tgi:research.portalgun.0",
+                    "required_knowledge":["THEORY;ARTIFICE;1"],
+                    "recipes": ["tgi:portal_gun"],
+                    "warp": 2
+                }
+            ]
+        }
+    ]
+}
+                        

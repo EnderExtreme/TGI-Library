@@ -1,0 +1,39 @@
+skillable.unlock.attributes.passive_defense=Passive Resistance
+skillable.unlock.attributes.passive_defense.desc=Grants a Passive Resistance-Boost, Scales with your Defence Skill Level.
+skillable.unlock.attributes.passive_mining=Passive Speedup
+skillable.unlock.attributes.passive_mining.desc=Grants a Passive Mining-Speed Boost, Scales with your Mining Skill Level.
+
+enchantment.heated = Heating Level
+enchantment.cooled = Cooling Level
+
+tgi.knowledge.selfSent=You have sent your Thaumcraft knowledge to %s!
+tgi.knowledge.targetReceived=You have received %s's current knowledge of Thaumcraft!
+
+tgi.netheroops=Where do you think you're going?
+
+tgi.subtitle.thats_hot=Will Smith: Ah- That's Hot.
+tgi.subtitle.its_really_really_cold=Will Smith: It's, REALLY- REALLY- cold.
+
+tgi.machine.atmospheric_accumulator.lv.name=Basic Atmospheric Accumulator
+tgi.machine.atmospheric_accumulator.mv.name=Intermediate Atmospheric Accumulator
+tgi.machine.atmospheric_accumulator.hv.name=Advanced Atmospheric Accumulator
+tgi.machine.atmospheric_accumulator.ev.name=Elite Atmospheric Accumulator
+tgi.machine.atmospheric_accumulator.iv.name=Master Atmospheric Accumulator
+tgi.machine.atmospheric_accumulator.luv.name=Expert Atmospheric Accumulator
+tgi.machine.atmospheric_accumulator.uv.name=Ultimate Atmospheric Accumulator
+tgi.machine.atmospheric_accumulator.description=Collects vapour or gases from adjacent blocks
+
+tgi.emccontainer.crafting=EMC Crafting
+
+tc.aspect.Cosmos=Space, Stars
+tc.research_category.CELESTIAL=Celestial Sorcery
+tgi.research.manaore.title=Magic Iron
+tgi:research.manaore.0=By using alchemical thaumaturgy, we can imbue pure iron ores to magically infused ores. A salis mundus would do just fine too!
+tgi.research.portalgun_blackhole.title=SERN is Calling
+tgi.research.portalgun_blackhole.0=Parts of the nether star can be recognised as a 'Perfect Mirror' that absorbs so little light. By using this property, we can concentrate so much of the void's essence into it that it turns into a miniature black hole that absorbs 100% of the light and warps into a singularity that potentially can manipulate time and space itself.
+tgi.research.portalgun.title=Portal 3 Confirmed.
+tgi.research.portalgun.0=By creating a shell and encompassing the Miniature Black Hole, we achieve perfect containment and usability! With just a little of heat energy in the air we can create an entrance portal and a destination portal and effectively teleport with ease.
+tgi.research.astral_beginning.title=The Stars Above
+tgi.research.astral_beginning.0=After the celestial investigations you did at the very start of your Thaumaturgical journey; surely there must be more than just bonuses to your research. Can you find anything relating to the skies except for just celestial cycles of the moon? I mean, those stars seem very prominent where the dragon once flew. 
+tgi:research.imbuedmarble.title=Don't Lose your Marbles
+tgi:research.imbuedmarble.0=Marble.

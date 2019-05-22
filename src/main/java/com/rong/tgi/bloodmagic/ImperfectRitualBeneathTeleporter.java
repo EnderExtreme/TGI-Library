@@ -3,9 +3,11 @@ package com.rong.tgi.bloodmagic;
 import com.rong.tgi.TGILibrary;
 
 import WayofTime.bloodmagic.BloodMagic;
+import WayofTime.bloodmagic.core.data.SoulNetwork;
 import WayofTime.bloodmagic.ritual.RitualRegister;
 import WayofTime.bloodmagic.ritual.imperfect.IImperfectRitualStone;
 import WayofTime.bloodmagic.ritual.imperfect.ImperfectRitual;
+import WayofTime.bloodmagic.util.helper.NetworkHelper;
 import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.ore.OrePrefix;
@@ -34,8 +36,14 @@ public class ImperfectRitualBeneathTeleporter extends ImperfectRitual {
     	World world = imperfectRitualStone.getRitualWorld();
     	BlockPos pos = imperfectRitualStone.getRitualPos().up();
     	IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
-    	if(world.canBlockSeeSky(pos) && knowledge.isResearchKnown("m_deepdown"))
-    		world.setBlockState(pos.up(), Block.getBlockFromName("beneath:teleporterbeneath").getDefaultState(), 3);
-        return true;
+    	SoulNetwork network = NetworkHelper.getSoulNetwork(player);
+    	if(world.canBlockSeeSky(pos) && knowledge.isResearchComplete("UNLOCKAUROMANCY") && network.getCurrentEssence() >= this.getActivationCost()) {
+    		world.setBlockToAir(pos.up());
+    		world.setBlockState(pos.up(), Block.getBlockFromName("beneath:teleporterbeneath").getDefaultState());
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
     }
 }

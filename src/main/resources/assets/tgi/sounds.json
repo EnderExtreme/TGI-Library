@@ -1,0 +1,12 @@
+{
+  "thats_hot": {
+    "category": "player",
+    "subtitle": "tgi.subtitle.thats_hot",
+    "sounds": [ "name": "tgi:sound/thatsHot" ]
+  },
+  "its_really_really_cold": {
+    "category": "player",
+    "subtitle": "tgi.subtitle.its_really_really_cold",
+    "sounds": [ "name": "tgi:sound/itsReallyReallyCold" ]
+  }
+}

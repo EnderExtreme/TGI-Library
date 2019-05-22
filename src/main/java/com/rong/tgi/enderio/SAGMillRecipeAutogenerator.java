@@ -39,13 +39,13 @@ public class SAGMillRecipeAutogenerator {
 													   new RecipeOutput(OreDictUnifier.get(OrePrefix.crushed, m), 1F, 2.4F), 
 													   new RecipeOutput(OreDictUnifier.get(OrePrefix.dustImpure, m), 0.3F, 0.5F)
 													  };
-					SAGMillRecipe oreRecipe = new SAGMillRecipe(gemRecipeInput, 3800, RecipeBonusType.CHANCE_ONLY, gemRecipeOutputs);
+					SAGMillRecipe oreRecipe = new SAGMillRecipe(gemRecipeInput, 3800, RecipeBonusType.MULTIPLY_OUTPUT, gemRecipeOutputs);
 					SagMillRecipeManager.getInstance().addRecipe(oreRecipe);
 					
 					IRecipeInput gemCrushedRecipeInput = new RecipeInput(OreDictUnifier.get(OrePrefix.dustImpure, m));
 					RecipeOutput[] gemFromCrushedRecipeOutputs = {
 							   						   			  new RecipeOutput(OreDictUnifier.get(OrePrefix.gem, m), 1F, 3.7F), 
-							   						   			  new RecipeOutput(OreDictUnifier.get(OrePrefix.dustSmall, m), 0.25F, 1F)
+							   						   			  new RecipeOutput(OreDictUnifier.get(OrePrefix.dustTiny, m, 5), 0.25F, 1F)
 							   									 };
 					SAGMillRecipe crushedRecipe = new SAGMillRecipe(gemCrushedRecipeInput, 3200, RecipeBonusType.MULTIPLY_OUTPUT, gemRecipeOutputs);
 					SagMillRecipeManager.getInstance().addRecipe(crushedRecipe);
@@ -88,8 +88,7 @@ public class SAGMillRecipeAutogenerator {
 							  							  };							
 					SAGMillRecipe crushedRecipe = new SAGMillRecipe(crushedRecipeInput, 13500, RecipeBonusType.CHANCE_ONLY, crushedRecipeOutputs);
 					SagMillRecipeManager.getInstance().addRecipe(crushedRecipe);
-				}
-				
+				}		
 			}
 		}		
 	}

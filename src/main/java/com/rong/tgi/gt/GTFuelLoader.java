@@ -2,7 +2,7 @@ package com.rong.tgi.gt;
 
 import gregtech.api.GTValues;
 import gregtech.api.recipes.machines.FuelRecipeMap;
-import gregtech.loaders.recipes.FuelLoader;
+import gregtech.loaders.FuelLoader;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 

@@ -19,16 +19,12 @@ public class TraitPassiveDefense extends Trait {
 	
 	@Override
 	public void onHurt(LivingHurtEvent event) {
-		if (event.isCanceled() || !(event.getEntityLiving() instanceof EntityPlayer)){
-			return;
-		}
+		if(event.isCanceled() || !(event.getEntityLiving() instanceof EntityPlayer)) return; 
+		
 		float baseDamage = event.getAmount();
-	    EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-	    PlayerData data = PlayerDataHandler.get(player);
-	    PlayerSkillInfo info = data.getSkillInfo(getParentSkill());
-	    for (int i = 0; i < info.getLevel(); i++) {
-	    	baseDamage -= 0.2F;
-	    }
+	    EntityPlayer player = (EntityPlayer)event.getEntityLiving();
+	    PlayerSkillInfo info = PlayerDataHandler.get(player).getSkillInfo(getParentSkill());
+	    baseDamage -= 0.05F * info.getLevel();
 	    event.setAmount(baseDamage);
 	}
 }

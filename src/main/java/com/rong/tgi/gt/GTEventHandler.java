@@ -1,5 +1,7 @@
 package com.rong.tgi.gt;
 
+import com.rong.tgi.Helper;
+
 import gregtech.api.items.metaitem.MetaItem;
 import gregtech.api.unification.material.type.DustMaterial;
 import gregtech.api.unification.material.type.Material;
@@ -18,10 +20,16 @@ public class GTEventHandler {
 	
 	@SubscribeEvent(priority = EventPriority.LOW)
 	public static void recipesLow(Register<IRecipe> event) {  
-		GTRecipes.advancedRocketryInit();
-		GTRecipes.immersiveEngineeringAddon();
-		GTRecipes.init();
-		GTRecipes.dyes();
+		if(Helper.isModLoaded("gregtech")) {
+			if(Helper.isModLoaded("advancedrocketry")) {
+				GTRecipes.advancedRocketryInit();
+			}
+			if(Helper.isModLoaded("immersiveengineering")) {
+				GTRecipes.immersiveEngineeringAddon();
+			}
+			GTRecipes.init();
+			GTRecipes.dyes();
+		}
 	}
 
 }

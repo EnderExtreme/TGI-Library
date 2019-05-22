@@ -1,0 +1,9 @@
+{
+  "package": "com.rong.tgi.mixins",
+  "required": true,
+  "refmap": "tgi.mixin.refmap.json",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinBlockFluidStarlight"
+  ]
+}

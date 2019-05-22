@@ -1,0 +1,79 @@
+{
+	"entries":[
+		{
+			"key": "MANAORE",
+			"name": "tgi.research.manaore.title",
+			"icons": ["thermalfoundation:ore;1;8"],
+			"category": "ALCHEMY",
+			"parents": ["BASEALCHEMY"],
+			"siblings": [],
+			"meta": ["AUTOUNLOCK"],
+			"location": [0, 2],
+			"stages": [
+				{
+					"text": "tgi:research.manaore.0",
+					"recipes": ["tgi:mana_ore_0", "tgi:mana_ore_1", "tgi:mana_ore_2", 
+					            "tgi:mana_ore_3", "tgi:mana_ore_4"]
+			    }
+			]
+	    },
+	    {
+            "key": "ALCHEMICCONDENSER",
+            "name": "tgi.research.alchemic_condenser.title",
+            "icons": ["rustic:condenser"],
+            "category": "ALCHEMY",
+            "parents": ["RT_BASE", "BASEALCHEMY"],
+            "siblings": ["ADVANCEDALCHEMICCONDENSER"],
+            "meta": ["ROUND", "HIDDEN"],
+            "location": [-1, -2],
+            "stages": [
+                {
+                    "text": "research.alchemic_condenser.0",
+                    "required_item":["rustic:chamomile;8"]
+
+                },  
+                {
+                    "text": "research.alchemic_condenser.1",
+                    "required_item":["rustic:horsetail;8"]
+
+                },
+                {
+                    "text": "tgi:research.alchemic_condenser.2",
+                    "recipes": ["tgi:alchemic_condenser", "tgi:retort"]
+                }
+            ]
+        },
+        {
+            "key": "ADVANCEDALCHEMICCONDENSER",
+            "name": "tgi.research.advanced_alchemic_condenser.title",
+            "icons": ["rustic:condenser_advanced"],
+            "category": "ALCHEMY",
+            "parents": ["ALCHEMICCONDENSER"],
+            "siblings": [],
+            "meta": ["ROUND", "HIDDEN"],
+            "location": [-1, -4],
+            "stages": [
+                {
+                    "text": "research.advanced_alchemic_condenser.0",
+                    "required_item":["rustic:core_root;2"]
+
+                },  
+                {
+                    "text": "research.advanced_alchemic_condenser.1",
+                    "required_item":["rustic:ginseng;2"]
+
+                },
+                {
+                    "text": "research.advanced_alchemic_condenser.2",
+                    "required_item":["rustic:marsh_mallow;2"]
+
+                },
+                {
+                    "text": "tgi:research.advanced_alchemic_condenser.3",
+                    "recipes": ["tgi:advanced_alchemic_condenser", "tgi:advanced_retort"]
+                }
+            ]
+        }
+	]
+}
+						

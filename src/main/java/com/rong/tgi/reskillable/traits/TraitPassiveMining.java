@@ -21,11 +21,8 @@ public class TraitPassiveMining extends Trait {
     public void getBreakSpeed(BreakSpeed event) {
         float editedSpeed = event.getNewSpeed();
         EntityPlayer player = event.getEntityPlayer();
-        PlayerData data = PlayerDataHandler.get(player);
-        PlayerSkillInfo info = data.getSkillInfo(getParentSkill());
-        for (int i = 0; i < info.getLevel(); i++) {
-            editedSpeed += 0.2F;
-        }
+        PlayerSkillInfo info = PlayerDataHandler.get(player).getSkillInfo(getParentSkill());
+        editedSpeed += 0.05F * info.getLevel();
         event.setNewSpeed(editedSpeed);
     }
 }
