@@ -30,6 +30,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -41,6 +42,7 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
@@ -50,12 +52,20 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @Mod.EventBusSubscriber
 public class VanillaEventHandler {
 
-	static Method setSize = ReflectionHelper.findMethod(Entity.class, "setSize", "func_70105_a", void.class,
-			float.class, float.class);
+	// @Deprecated Used in previous forge versions, ReflectionHelper is now for
+	// 'internal use' only, oh well
+	// static Method setSize = ReflectionHelper.findMethod(Entity.class, "setSize",
+	// "func_70105_a", void.class,
+	// float.class, float.class);
+
+	// ObfuscationReflectionHelper#findMethod now does not need both deobf'd +
+	// srgName
+	static Method setSize = ObfuscationReflectionHelper.findMethod(Entity.class, "func_70105_a", Void.TYPE,
+			new Class[] { Float.TYPE, Float.TYPE });
 
 	// This covers both sneaking + swimming!
 	@SubscribeEvent
-	public void onInputUpdate(InputUpdateEvent event) {
+	public static void onInputUpdate(InputUpdateEvent event) {
 		EntityPlayer player = event.getEntityPlayer();
 		AxisAlignedBB axisAlignedBB = player.getEntityBoundingBox();
 		axisAlignedBB = new AxisAlignedBB(axisAlignedBB.minX, axisAlignedBB.minY, axisAlignedBB.minZ,
@@ -90,9 +100,9 @@ public class VanillaEventHandler {
 		else if(((player.isInWater()) && (player.isSprinting()))
 				|| ((player.world.getBlockState(player.getPosition().up()).getMaterial() != Material.AIR)
 						&& (player.world.getBlockState(player.getPosition().up()).getMaterial() != Material.WATER))) {
-			player.height = 0.8F;
-			player.width = 0.8F;
-			player.eyeHeight = 0.6F;
+			player.height = 0.6F;
+			player.width = 0.6F;
+			player.eyeHeight = 0.4F;
 			try {
 				setSize.invoke(player, player.width, player.height);
 			}
@@ -101,11 +111,9 @@ public class VanillaEventHandler {
 				e.printStackTrace();
 			}
 			AxisAlignedBB axisAlignedBB = player.getEntityBoundingBox();
-
 			axisAlignedBB = new AxisAlignedBB(player.posX - player.width / 2.0D, axisAlignedBB.minY,
 					player.posZ - player.width / 2.0D, player.posX + player.width / 2.0D,
 					axisAlignedBB.minY + player.height, player.posZ + player.width / 2.0D);
-
 			player.setEntityBoundingBox(axisAlignedBB);
 		}
 		else {
@@ -156,13 +164,13 @@ public class VanillaEventHandler {
 	@SideOnly(Side.CLIENT)
 	public static void onLivingRender(RenderPlayerEvent.Pre event) {
 		World world = Minecraft.getMinecraft().world;
+
 		EntityPlayer player = event.getEntityPlayer();
+
 		ModelPlayer model = event.getRenderer().getMainModel();
 		ResourceLocation skinLoc = DefaultPlayerSkin.getDefaultSkin(player.getPersistentID());
 		boolean type = false;
-		if(((player.isInWater()) && (player.isSprinting()))
-				|| ((player.world.getBlockState(player.getPosition().up()).getMaterial() != Material.AIR)
-						&& (player.world.getBlockState(player.getPosition().up()).getMaterial() != Material.WATER))) {
+		if(((player.isInWater()) && (player.isSprinting())) || (isOpaqueBlock(player))) {
 			event.setCanceled(true);
 			if((Minecraft.getMinecraft().getRenderViewEntity() instanceof AbstractClientPlayer)) {
 				AbstractClientPlayer client = (AbstractClientPlayer) Minecraft.getMinecraft().getRenderViewEntity();
@@ -268,7 +276,26 @@ public class VanillaEventHandler {
 		return entity.world.rayTraceBlocks(startPos, endPos);
 	}
 
-	private boolean isSneakingPose(EntityPlayer player) {
+	private static boolean isOpaqueBlock(EntityPlayer player) {
+		if(player.noClip) { return false; }
+		BlockPos.PooledMutableBlockPos pooledPos = BlockPos.PooledMutableBlockPos.retain();
+		for(int i = 0; i < 8; i++) {
+			int j = MathHelper.floor(player.posY + 1.0D);
+			int k = MathHelper.floor(player.posX + ((i >> 1) % 2 - 0.5F) * player.width * 0.8F);
+			int l = MathHelper.floor(player.posZ + ((i >> 2) % 2 - 0.5F) * player.width * 0.8F);
+			if((pooledPos.getX() != k) || (pooledPos.getY() != j) || (pooledPos.getZ() != l)) {
+				pooledPos.setPos(k, j, l);
+				if(player.world.getBlockState(pooledPos).causesSuffocation()) {
+					pooledPos.release();
+					return true;
+				}
+			}
+		}
+		pooledPos.release();
+		return false;
+	}
+
+	private static boolean isSneakingPose(EntityPlayer player) {
 		boolean flag = Math.abs(player.width - 0.6) < 0.01F;
 		boolean flag1 = Math.abs(player.height - 1.5) < 0.01F;
 		return flag && flag1;
