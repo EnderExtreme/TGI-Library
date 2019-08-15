@@ -14,16 +14,6 @@ import blusunrize.immersiveengineering.api.crafting.MetalPressRecipe;
 import blusunrize.immersiveengineering.api.crafting.MixerRecipe;
 import blusunrize.immersiveengineering.common.IEContent;
 import blusunrize.immersiveengineering.common.IERecipes;
-import gregtech.api.recipes.CountableIngredient;
-import gregtech.api.recipes.ModHandler;
-import gregtech.api.recipes.RecipeMaps;
-import gregtech.api.recipes.ingredients.IntCircuitIngredient;
-import gregtech.api.unification.OreDictUnifier;
-import gregtech.api.unification.material.Materials;
-import gregtech.api.unification.material.type.DustMaterial;
-import gregtech.api.unification.material.type.GemMaterial;
-import gregtech.api.unification.material.type.Material;
-import gregtech.api.unification.ore.OrePrefix;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -37,66 +27,52 @@ import zmaster587.advancedRocketry.api.AdvancedRocketryAPI;
 import zmaster587.advancedRocketry.api.AdvancedRocketryItems;
 import zmaster587.advancedRocketry.armor.ItemSpaceArmor;
 
-public class GTRecipes {
-	
-	public static void advancedRocketryInit() {
-		
-		RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().inputs(new ItemStack(Items.BONE)).fluidInputs(Materials.Nitrogen.getFluid(50)).outputs(new ItemStack(Items.DYE, 10, 15)).EUt(32).duration(300).buildAndRegister();
+import static muramasa.gtu.api.data.RecipeMaps.*;
+import static muramasa.gtu.api.data.Materials.*;
 
-		for(ResourceLocation key : Item.REGISTRY.getKeys()) {
-			Item item = Item.REGISTRY.getObject(key);
-			if(item instanceof ItemArmor && !(item instanceof ItemSpaceArmor)) {
-				ItemStack enchanted = new ItemStack(item);
-				enchanted.addEnchantment(AdvancedRocketryAPI.enchantmentSpaceProtection, 1);
-				if(((ItemArmor) item).armorType == EntityEquipmentSlot.CHEST) {
-					RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().inputs(new ItemStack(AdvancedRocketryItems.itemPressureTank, 1, 3), new ItemStack(item)).fluidInputs(Materials.Ice.getFluid(2592)).outputs(enchanted).EUt(286).duration(1200).buildAndRegister();
-				}
-				else {
-					RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().inputs(new ItemStack(item)).fluidInputs(Materials.Ice.getFluid(2592)).outputs(enchanted).EUt(286).duration(600).buildAndRegister();
-				}
-			}
-		}
-	}
-	
-	/*
-	 * TODO:
-	 * 1. AE2 CABLES
-	 * 2. IF CONVEYOR BELTS
-	 * 3. FUSED QUARTZ
-	 * 4. THAUMCRAFT NITOR
-	 * 5. (DONE)THERMAL FOUNDATION ROCKWOOL
-	 * 6. ITEMFRAMES
-	 * 7. CANDLES
-	 * 8. STAINED PLANKS
-	 * 9. ENDERIO SHIT
-	 * 10. OC FLOPPY DISKS
-	 * 11. QUARK ITEMS
-	 * 
-	 */
-	
-	public static void dyes() {
-		
-		/*List<String> itemDyes = Arrays.asList("dyeBlack", "dyeRed", "dyeGreen", "dyeBrown", "dyeBlue", "dyePurple", "dyeCyan", "dyeLightGray", "dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue", "dyeMagenta", "dyeOrange", "dyeWhite");
-		List<String> waterDyes = Arrays.asList("water_dye_black", "water_dye_red", "water_dye_green", "water_dye_brown", "water_dye_blue", "water_dye_purple", "water_dye_cyan", "water_dye_lightgray", "water_dye_gray", "water_dye_pink", "water_dye_lime", "water_dye_yellow", "water_dye_lightblue", "water_dye_magenta", "water_dye_orange", "water_dye_white");
-		List<String> chemicalDyes = Arrays.asList("chemical_dye_black", "chemical_dye_red", "chemical_dye_green", "chemical_dye_brown", "chemical_dye_blue", "chemical_dye_purple", "chemical_dye_cyan", "chemical_dye_lightgray", "chemical_dye_gray", "chemical_dye_pink", "chemical_dye_lime", "chemical_dye_yellow", "chemical_dye_lightblue", "chemical_dye_magenta", "chemical_dye_orange", "chemical_dye_white");
-		
-		ArrayList<Integer> dyeMetas = new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15));		
-		ArrayList<Integer> woolMetas = new ArrayList<Integer>(Arrays.asList(15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0));
-		Iterator<Integer> dyeIterator = dyeMetas.iterator();
-		Iterator<Integer> woolIterator = woolMetas.iterator();
-				
-		while(dyeIterator.hasNext() && woolIterator.hasNext()) {
-			int dye = dyeIterator.next();
-			int meta = woolIterator.next();
-			if(dye != 15 && meta != 0) {
-			}
-			
-			if(dye != 7) {
-			}			
-		}*/
-	}		
-	
-	public static void immersiveEngineeringAddon() {
+public class GTRecipes {
+
+    /*
+     * TODO: 1. AE2 CABLES 2. IF CONVEYOR BELTS 3. FUSED QUARTZ 4. THAUMCRAFT NITOR
+     * 5. (DONE)THERMAL FOUNDATION ROCKWOOL 6. ITEMFRAMES 7. CANDLES 8. STAINED
+     * PLANKS 9. ENDERIO SHIT 10. OC FLOPPY DISKS 11. QUARK ITEMS
+     * 
+     */
+
+    public static void dyes() {
+
+        /*
+         * List<String> itemDyes = Arrays.asList("dyeBlack", "dyeRed", "dyeGreen",
+         * "dyeBrown", "dyeBlue", "dyePurple", "dyeCyan", "dyeLightGray", "dyeGray",
+         * "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue", "dyeMagenta", "dyeOrange",
+         * "dyeWhite"); List<String> waterDyes = Arrays.asList("water_dye_black",
+         * "water_dye_red", "water_dye_green", "water_dye_brown", "water_dye_blue",
+         * "water_dye_purple", "water_dye_cyan", "water_dye_lightgray",
+         * "water_dye_gray", "water_dye_pink", "water_dye_lime", "water_dye_yellow",
+         * "water_dye_lightblue", "water_dye_magenta", "water_dye_orange",
+         * "water_dye_white"); List<String> chemicalDyes =
+         * Arrays.asList("chemical_dye_black", "chemical_dye_red", "chemical_dye_green",
+         * "chemical_dye_brown", "chemical_dye_blue", "chemical_dye_purple",
+         * "chemical_dye_cyan", "chemical_dye_lightgray", "chemical_dye_gray",
+         * "chemical_dye_pink", "chemical_dye_lime", "chemical_dye_yellow",
+         * "chemical_dye_lightblue", "chemical_dye_magenta", "chemical_dye_orange",
+         * "chemical_dye_white");
+         * 
+         * ArrayList<Integer> dyeMetas = new ArrayList<Integer>(Arrays.asList(0, 1, 2,
+         * 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)); ArrayList<Integer> woolMetas =
+         * new ArrayList<Integer>(Arrays.asList(15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5,
+         * 4, 3, 2, 1, 0)); Iterator<Integer> dyeIterator = dyeMetas.iterator();
+         * Iterator<Integer> woolIterator = woolMetas.iterator();
+         * 
+         * while(dyeIterator.hasNext() && woolIterator.hasNext()) { int dye =
+         * dyeIterator.next(); int meta = woolIterator.next(); if(dye != 15 && meta !=
+         * 0) { }
+         * 
+         * if(dye != 7) { } }
+         */
+    }
+
+    public static void immersiveEngineeringAddon() {
 
 		List<CrusherRecipe> crusherRecipes = new ArrayList();
 		Iterator<CrusherRecipe> crusherIterator = CrusherRecipe.recipeList.iterator();
@@ -142,8 +118,8 @@ public class GTRecipes {
 		}
 		
 		AlloyRecipe.addRecipe(new ItemStack(Blocks.HARDENED_CLAY), new ItemStack(Blocks.CLAY), ItemStack.EMPTY, 200);
-		AlloyRecipe.addRecipe(new ItemStack(Item.getByNameOrId("betterwithmods:aesthetic"), 1, 7), new ItemStack(Blocks.END_STONE), ItemStack.EMPTY, 100);
-		AlloyRecipe.addRecipe(new ItemStack(Item.getByNameOrId("betterwithmods:aesthetic"), 2, 7), new ItemStack(Blocks.END_STONE), new ItemStack(Blocks.END_STONE), 140);
+		//AlloyRecipe.addRecipe(new ItemStack(Item.getByNameOrId("betterwithmods:aesthetic"), 1, 7), new ItemStack(Blocks.END_STONE), ItemStack.EMPTY, 100);
+		//AlloyRecipe.addRecipe(new ItemStack(Item.getByNameOrId("betterwithmods:aesthetic"), 2, 7), new ItemStack(Blocks.END_STONE), new ItemStack(Blocks.END_STONE), 140);
 		
 		//Re-implement useful recipes
 		IERecipes.addCrusherRecipe(new ItemStack(Blocks.GRAVEL), "cobblestone", 1600);
@@ -158,6 +134,7 @@ public class GTRecipes {
 		IERecipes.addCrusherRecipe(new ItemStack(IEContent.itemMaterial, 1, 17), "fuelCoke", 2400);
 		IERecipes.addCrusherRecipe(new ItemStack(IEContent.itemMaterial, 9, 17), "blockFuelCoke", 4800);
 		
+		/*
 		for(Material m : Material.MATERIAL_REGISTRY) {
 			if(m.hasFlag(DustMaterial.MatFlags.GENERATE_ORE)) {
 				DustMaterial material = (DustMaterial)m;
@@ -231,5 +208,6 @@ public class GTRecipes {
 
         //Making Ethylene
         RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(1200).EUt(120).fluidInputs(Materials.SulfuricAcid.getFluid(1000), FluidRegistry.getFluidStack("bio.ethanol", 1000)).fluidOutputs(Materials.Ethylene.getFluid(1000), Materials.DilutedSulfuricAcid.getFluid(1000)).buildAndRegister();
-	}	
+	}*/	
+    }
 }

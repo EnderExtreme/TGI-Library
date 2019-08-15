@@ -13,10 +13,10 @@ public class CapabilityHandler {
 
     public static final ResourceLocation TEMPERATURE_PROVIDER = new ResourceLocation(TGILibrary.MODID, "temperature");
 
-    //Forge, please fix this shit. I was stuck on this for God knows how long.
+    // Forge, please fix this shit. I was stuck on this for God knows how long.
     @SubscribeEvent
     public static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
-        if(event.getObject() instanceof EntityPlayer) {
+        if (event.getObject() instanceof EntityPlayer) {
             event.addCapability(TEMPERATURE_PROVIDER, new TemperatureProvider());
         }
     }

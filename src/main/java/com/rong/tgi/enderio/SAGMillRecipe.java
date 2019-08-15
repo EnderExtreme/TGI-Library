@@ -13,13 +13,13 @@ import crazypants.enderio.base.recipe.sagmill.SagMillRecipeManager;
 import net.minecraft.item.ItemStack;
 
 public class SAGMillRecipe extends Recipe {
-	
-	public SAGMillRecipe(IRecipeInput input, int energyRequired, RecipeBonusType bonusType, RecipeOutput[] output) {
-		super(input, energyRequired, bonusType, output);
-	}
 
-	@Override
-	public boolean isInputForRecipe(NNList<MachineRecipeInput> machineInputs) {
-		return machineInputs.size() == 1 && getInputs()[0].isInput(machineInputs.get(0).item);
+    public SAGMillRecipe(IRecipeInput input, int energyRequired, RecipeBonusType bonusType, RecipeOutput[] output) {
+        super(input, energyRequired, bonusType, output);
+    }
+
+    @Override
+    public boolean isInputForRecipe(NNList<MachineRecipeInput> machineInputs) {
+        return machineInputs.size() == 1 && getInputs()[0].isInput(machineInputs.get(0).item);
     }
 }

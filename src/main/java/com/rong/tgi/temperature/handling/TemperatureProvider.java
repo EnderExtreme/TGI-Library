@@ -20,7 +20,7 @@ public class TemperatureProvider implements ICapabilitySerializable<NBTBase> {
 
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        return capability == TEMPERATURE_CAPABILITY ? TEMPERATURE_CAPABILITY.<T> cast(this.instance) : null;
+        return capability == TEMPERATURE_CAPABILITY ? TEMPERATURE_CAPABILITY.<T>cast(this.instance) : null;
     }
 
     @Override

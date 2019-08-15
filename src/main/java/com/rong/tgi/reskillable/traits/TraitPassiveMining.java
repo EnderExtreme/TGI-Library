@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
 public class TraitPassiveMining extends Trait {
-	
+
     public TraitPassiveMining() {
         super(new ResourceLocation(TGILibrary.MODID, "passive_mining"), 0, 3, new ResourceLocation(LibMisc.MOD_ID, "mining"), 0, "");
     }

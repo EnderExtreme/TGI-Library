@@ -13,25 +13,23 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Mod.EventBusSubscriber
 public class IEEventHandler {
-	
-	//Nerf IE Crates
-	@SubscribeEvent
-	public static void onBlockDrop(HarvestDropsEvent event) {
-		if(!(event.getState().getBlock() instanceof BlockWoodenDevice0)) return;
-		NBTTagList invTagList = null;
-		List<ItemStack> drops = event.getDrops();
-		for(ItemStack stack : drops) {
-			if((stack.getItem() instanceof ItemBlock) && 
-					((ItemBlock)stack.getItem()).getBlock() instanceof BlockWoodenDevice0 &&
-					stack.hasTagCompound() && stack.getTagCompound().hasKey("inventory", 9)) {
-				invTagList = stack.getTagCompound().getTagList("inventory", 10);
-				stack.getTagCompound().removeTag("inventory");
-				if(stack.getTagCompound().hasNoTags()) {
-					stack.setTagCompound(null);
-				}
-		    }
-		 }
-		drops.addAll(Utils.readInventory(invTagList, 27));    
-	}
-	
+
+    // Nerf IE Crates
+    @SubscribeEvent
+    public static void onBlockDrop(HarvestDropsEvent event) {
+        if (!(event.getState().getBlock() instanceof BlockWoodenDevice0)) return;
+        NBTTagList invTagList = null;
+        List<ItemStack> drops = event.getDrops();
+        for (ItemStack stack : drops) {
+            if ((stack.getItem() instanceof ItemBlock) && ((ItemBlock) stack.getItem()).getBlock() instanceof BlockWoodenDevice0 && stack.hasTagCompound() && stack.getTagCompound().hasKey("inventory", 9)) {
+                invTagList = stack.getTagCompound().getTagList("inventory", 10);
+                stack.getTagCompound().removeTag("inventory");
+                if (stack.getTagCompound().hasNoTags()) {
+                    stack.setTagCompound(null);
+                }
+            }
+        }
+        drops.addAll(Utils.readInventory(invTagList, 27));
+    }
+
 }

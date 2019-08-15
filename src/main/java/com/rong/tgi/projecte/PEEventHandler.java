@@ -19,30 +19,30 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 @Mod.EventBusSubscriber
 public class PEEventHandler {
-	
-	public static boolean isSpecialGUIOpen = false;
-	
-	@SubscribeEvent
-	public static void onRightClickingPedestalWithPS(PlayerInteractEvent.RightClickBlock event) {
-		if(event.getEntityPlayer().isSneaking()) return;
-		TileEntity te = event.getWorld().getTileEntity(event.getPos());
-        if(te != null && te instanceof DMPedestalTile) {
-            DMPedestalTile tile = (DMPedestalTile)te;
+
+    public static boolean isSpecialGUIOpen = false;
+
+    @SubscribeEvent
+    public static void onRightClickingPedestalWithPS(PlayerInteractEvent.RightClickBlock event) {
+        if (event.getEntityPlayer().isSneaking())
+            return;
+        TileEntity te = event.getWorld().getTileEntity(event.getPos());
+        if (te != null && te instanceof DMPedestalTile) {
+            DMPedestalTile tile = (DMPedestalTile) te;
             ItemStack stack = tile.getInventory().getStackInSlot(0);
-            if(stack.getItem() == ObjHandler.philosStone) {
-            	if(!event.getWorld().isRemote) {
-            		event.getEntityPlayer().openGui(PECore.instance, 
-            				Constants.PHILOS_STONE_GUI, event.getWorld(), event.getHand() == EnumHand.MAIN_HAND ? 0 : 1, -1, -1);
-            		isSpecialGUIOpen = true;
-            	}
+            if (stack.getItem() == ObjHandler.philosStone) {
+                if (!event.getWorld().isRemote) {
+                    event.getEntityPlayer().openGui(PECore.instance, Constants.PHILOS_STONE_GUI, event.getWorld(), event.getHand() == EnumHand.MAIN_HAND ? 0 : 1, -1, -1);
+                    isSpecialGUIOpen = true;
+                }
             }
         }
-	}
-	
-	@SubscribeEvent
+    }
+
+    @SubscribeEvent
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-		IForgeRegistry<IRecipe> registry = event.getRegistry();
-		registry.register(new RecipeTest().setRegistryName(TGILibrary.MODID + "testing_testing_123"));
-	}
+        IForgeRegistry<IRecipe> registry = event.getRegistry();
+        registry.register(new RecipeTest().setRegistryName(TGILibrary.MODID + "testing_testing_123"));
+    }
 
 }

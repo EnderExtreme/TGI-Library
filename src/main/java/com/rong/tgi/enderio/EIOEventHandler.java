@@ -5,7 +5,5 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Mod.EventBusSubscriber
 public class EIOEventHandler {
-	
-	
-	
+
 }
