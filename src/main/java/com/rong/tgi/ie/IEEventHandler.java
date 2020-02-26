@@ -24,7 +24,7 @@ public class IEEventHandler {
             if ((stack.getItem() instanceof ItemBlock) && ((ItemBlock) stack.getItem()).getBlock() instanceof BlockWoodenDevice0 && stack.hasTagCompound() && stack.getTagCompound().hasKey("inventory", 9)) {
                 invTagList = stack.getTagCompound().getTagList("inventory", 10);
                 stack.getTagCompound().removeTag("inventory");
-                if (stack.getTagCompound().hasNoTags()) {
+                if (stack.getTagCompound().isEmpty()) {
                     stack.setTagCompound(null);
                 }
             }

@@ -19,7 +19,7 @@ apply plugin: "com.wynprice.cursemaven"
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 
-version = "1.7"
+version = "1.7a"
 group = "com.rong.tgi" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "tgi"
 
@@ -91,6 +91,7 @@ dependencies {
     deobfCompile "cofh:ThermalExpansion:1.12.2-5.5.4.43:universal"
     // deobfCompile "com.enderio.core:EnderCore:1.12.2-0.5.74"
     // deobfCompile "com.enderio:EnderIO:1.12.2-5.1.55"
+    // deobfCompile "com.enderio.core:EnderCore:1.12.2-+"
     deobfCompile "net.sengir.forestry:forestry_1.12.2:5.8.2.394"
     deobfCompile "blusunrize:ImmersiveEngineering:0.12-89-518"
     deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"

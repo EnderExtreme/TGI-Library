@@ -7,11 +7,9 @@ import com.rong.tgi.projecte.PEEventHandler;
 
 import moze_intel.projecte.api.ProjectEAPI;
 import moze_intel.projecte.gameObjs.ObjHandler;
-import muramasa.gtu.api.data.Materials;
-import net.darkhax.gamestages.GameStageHelper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -39,11 +37,11 @@ public class RecipeTest extends IForgeRegistryEntry.Impl<IRecipe> implements IRe
 
     @Override
     public ItemStack getCraftingResult(InventoryCrafting inv) {
-        if (!PEEventHandler.isSpecialGUIOpen)
+        if (!PEEventHandler.pedestalHasPS)
             return ItemStack.EMPTY;
         if (!canPlayerCraft(inv))
             return ItemStack.EMPTY;
-        return Materials.Aluminium.getBlock(1);
+        return new ItemStack(Blocks.DIRT, 64);
     }
 
     @Override
@@ -53,7 +51,7 @@ public class RecipeTest extends IForgeRegistryEntry.Impl<IRecipe> implements IRe
 
     @Override
     public ItemStack getRecipeOutput() {
-        return Materials.Aluminium.getBlock(64);
+        return new ItemStack(Blocks.DIRT, 64);
     }
 
     private boolean canPlayerCraft(InventoryCrafting inv) {
