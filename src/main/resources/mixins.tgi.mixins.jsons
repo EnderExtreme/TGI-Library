@@ -1,9 +1,9 @@
 {
-  "package": "com.rong.tgi.mixins",
+  "package": "com.rong.tgi.mixin",
   "required": true,
   "refmap": "tgi.mixin.refmap.json",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "MixinBlockFluidStarlight"
+    "chunk.MixinChunkGeneratorOverworld"
   ]
 }

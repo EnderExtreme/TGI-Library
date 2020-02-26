@@ -11,7 +11,7 @@ import java.util.Random;
 import com.rong.tgi.entities.EntityManaPearl;
 
 import baubles.api.BaublesApi;
-import muramasa.gtu.api.data.Materials;
+//import muramasa.gtu.api.data.Materials;
 import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -21,6 +21,7 @@ import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.BlockPortal;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockPattern;
+import net.minecraft.client.gui.inventory.GuiCrafting;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -36,10 +37,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -67,6 +71,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemSmeltedEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
@@ -83,18 +88,46 @@ import vazkii.botania.common.item.ModItems;
 
 @Mod.EventBusSubscriber
 public class EventHandler {
+    
+    @SubscribeEvent
+    public static void onItemCrafted(ItemCraftedEvent event) {
+        ItemStack stack = event.crafting;
+        IInventory inventory = event.craftMatrix;
+        EnumRarity rarity = stack.getRarity();
+        if (stack.hasEffect()) {
+            event.player.addExperience(10);
+        }
+        else if (rarity == EnumRarity.UNCOMMON) {
+            event.player.addExperience(2);
+        }
+        else if (rarity == EnumRarity.RARE || rarity == EnumRarity.EPIC) {
+            event.player.addExperience(10);
+        }
+        else if (inventory.getDisplayName().getFormattedText() == "gib free xp plox") {
+            event.player.addExperience(2);
+        }
+        else {
+            if (inventory.getClass() != InventoryCrafting.class) event.player.addExperience(1);
+        }
+        
+    }
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    @SubscribeEvent
+    public static void onItemSmelted(ItemSmeltedEvent event) {
+        if (FurnaceRecipes.instance().getSmeltingExperience(event.smelting) <= 2.0F) event.player.addExperience(1);
+        else event.player.addExperience(2);
+    }
+    
+    @SubscribeEvent
     public static void onDimensionChangeClient(PlayerChangedDimensionEvent event) {
-        SoundEvent thatsHot = new SoundEvent(new ResourceLocation(TGILibrary.MODID, "thats_hot"));
-        SoundEvent itsReallyReallyCold = new SoundEvent(new ResourceLocation(TGILibrary.MODID, "its_really_really_cold"));
-        if (!event.player.world.isRemote) {
+        EntityPlayer player = event.player;
+        World world = player.world;
+        if (world.isRemote) {
+            BlockPos pos = player.getPosition();
             if (event.toDim == NETHER) {
-                event.player.playSound(thatsHot, 1.0F, 1.0F);
-                System.out.println("Played sound");
+                world.playSound(player, pos, CommonProxy.thatsHot, SoundCategory.PLAYERS, 1.0F, 1.0F);
             } else if (event.toDim == AETHER || event.toDim == END) {
-                event.player.playSound(itsReallyReallyCold, 1.0F, 1.0F);
-                System.out.println("Played sound");
+                world.playSound(player, pos, CommonProxy.itsReallyReallyCold, SoundCategory.PLAYERS, 1.0F, 1.0F);
             }
         }
     }
@@ -166,7 +199,8 @@ public class EventHandler {
      * stack.isItemEqual(MetaItems.WRENCH_HV.getStackForm())) {
      * event.setCanHarvest(true); } else { event.setCanHarvest(false); } } } }
      */
-    
+
+    /*
     //TODO: Use LootTweaker!
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onLivingDrop(LivingDropsEvent event) {
@@ -206,6 +240,7 @@ public class EventHandler {
             event.getDrops().remove(new EntityItem(world, x, y, z, new ItemStack(Items.MUTTON)));
         }
     }
+     */
 
     @SubscribeEvent
     public static void dontPlaceNearTwilightPortal(BlockEvent.PlaceEvent event) {
@@ -262,7 +297,7 @@ public class EventHandler {
         float f6 = f3 * f4;
         float f7 = f2 * f4;
         double d3 = player.getEntityAttribute(EntityPlayer.REACH_DISTANCE).getAttributeValue();
-        Vec3d vec3d1 = vec3d.addVector((double) f6 * d3, (double) f5 * d3, (double) f7 * d3);
+        Vec3d vec3d1 = vec3d.add((double) f6 * d3, (double) f5 * d3, (double) f7 * d3);
         RayTraceResult raytraceResult = world.rayTraceBlocks(vec3d, vec3d1, false);
 
         if (stack.isItemEqual(new ItemStack(Item.getByNameOrId("botania:manaresource"), 1, 1))) {

@@ -15,7 +15,7 @@ public class GTEventHandler {
 
     @SubscribeEvent(priority = EventPriority.LOW)
     public static void recipesLow(Register<IRecipe> event) {
-        GTRecipes.dyes();
+        //GTRecipes.dyes();
     }
 
 }

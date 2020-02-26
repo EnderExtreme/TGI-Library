@@ -212,8 +212,8 @@ public class TemperatureEventHandler {
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
-        event.getRegistry().register(new ItemCoolingPad().setCreativeTab(CreativeTabs.MATERIALS).setMaxStackSize(4).setUnlocalizedName(TGILibrary.MODID + ".coolingpad").setRegistryName("coolingpad"));
-        event.getRegistry().register(new ItemHeatingPad().setCreativeTab(CreativeTabs.MATERIALS).setMaxStackSize(4).setUnlocalizedName(TGILibrary.MODID + ".heatingpad").setRegistryName("heatingpad"));
+        event.getRegistry().register(new ItemCoolingPad().setCreativeTab(CreativeTabs.MATERIALS).setMaxStackSize(4).setRegistryName("coolingpad"));
+        event.getRegistry().register(new ItemHeatingPad().setCreativeTab(CreativeTabs.MATERIALS).setMaxStackSize(4).setRegistryName("heatingpad"));
     }
 
     @SubscribeEvent

@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.lwjgl.input.Keyboard;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,6 +30,14 @@ public class Helper {
     static String[] enderIOMachines = { "enderio:block_simple_furnace", "enderio:block_simple_alloy_smelter", "enderio:block_simple_sag_mill", "enderio:block_powered_spawner", "enderio:block_farm_station", "enderio:block_soul_binder", "enderio:block_attractor_obelisk", "enderio:block_aversion_obelisk", "enderio:block_inhibitor_obelisk", "enderio:block_experience_obelisk", "enderio:block_weather_obelisk", "enderio:block_slice_and_splice", "enderio:block_power_monitor", "enderio:block_sag_mill", "enderio:block_wired_charger", "enderio:block_normal_wireless_charger", "enderio:block_alloy_smelter", "enderio:block_vat", "enderio:block_painter", "enderio:block_buffer", "enderio:block_impulse_hopper", "enderio:block_crafter" };
 
     private static final ConcurrentMap<String, Boolean> isModLoadedCache = new ConcurrentHashMap<>();
+
+    public static ItemStack makeStack(String itemName, int meta, int stackSize) {
+        return GameRegistry.makeItemStack(itemName, meta, stackSize, "");
+    }
+
+    public static ItemStack makeStack(String itemName, int stackSize) {
+        return GameRegistry.makeItemStack(itemName, 0, stackSize, "");
+    }
 
     public static boolean isModLoaded(String modid) {
         if (isModLoadedCache.containsKey(modid)) {

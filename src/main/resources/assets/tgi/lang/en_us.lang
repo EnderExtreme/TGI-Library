@@ -23,7 +23,7 @@ tgi.machine.atmospheric_accumulator.luv.name=Expert Atmospheric Accumulator
 tgi.machine.atmospheric_accumulator.uv.name=Ultimate Atmospheric Accumulator
 tgi.machine.atmospheric_accumulator.description=Collects vapour or gases from adjacent blocks
 
-tgi.emccontainer.crafting=EMC Crafting
+tgi.gui.emc=EMC Needed: 
 
 tc.aspect.Cosmos=Space, Stars
 tc.research_category.CELESTIAL=Celestial Sorcery

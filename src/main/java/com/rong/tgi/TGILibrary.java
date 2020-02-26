@@ -1,38 +1,24 @@
 package com.rong.tgi;
 
-import java.lang.reflect.Field;
-import java.util.HashMap;
-
 import org.apache.logging.log4j.Logger;
 
-import com.rong.tgi.nc.RadiationEventHandler;
-import com.rong.tgi.reskillable.traits.TraitDiggersLuck;
-import com.rong.tgi.reskillable.traits.TraitPassiveDefense;
-import com.rong.tgi.reskillable.traits.TraitPassiveMining;
 import com.rong.tgi.temperature.handling.ITemperature;
 import com.rong.tgi.temperature.handling.Temperature;
 import com.rong.tgi.temperature.handling.TemperatureStorage;
 import com.rong.tgi.thaumcraft.ThaumcraftAddon;
 
-import codersafterdark.reskillable.api.ReskillableRegistries;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
 @Mod(modid = TGILibrary.MODID, name = TGILibrary.MODNAME, version = TGILibrary.VERSION, useMetadata = true, dependencies = "after:*")
 
 public class TGILibrary {
 
     @SidedProxy(clientSide = "com.rong.tgi.ClientProxy", serverSide = "com.rong.tgi.ServerProxy")
-
     public static ClientProxy clientProxy;
     public static CommonProxy commonProxy;
 
@@ -61,15 +47,17 @@ public class TGILibrary {
             ThaumcraftAddon.initTheoryCraft();
         }
 
-        //if (Helper.isModLoaded("reskillable")) {
-            //ReskillableRegistries.UNLOCKABLES.registerAll(new TraitPassiveMining(), new TraitPassiveDefense(), new TraitDiggersLuck());
-        //}
+        // if (Helper.isModLoaded("reskillable")) {
+        // ReskillableRegistries.UNLOCKABLES.registerAll(new TraitPassiveMining(), new
+        // TraitPassiveDefense(), new TraitDiggersLuck());
+        // }
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        //if (Helper.isModLoaded("nuclearcraft")) { //TODO: use new API
-            //RadiationEventHandler.addRadSources();
-        //}
+
+        // if (Helper.isModLoaded("nuclearcraft")) { //TODO: use new API
+        // RadiationEventHandler.addRadSources();
+        // }
     }
 }

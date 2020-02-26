@@ -10,6 +10,7 @@ import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
@@ -27,13 +28,15 @@ public class RemoveFromLootTable {
         if (event.getTable().isFrozen()) {
             if (constellationPaperTables.contains(name)) {
                 LootTable table = event.getLootTableManager().getLootTableFromLocation(LOOT_TABLE_SHRINE);
-                ReflectionHelper.setPrivateValue(LootTable.class, table, false, "isFrozen");
+                ObfuscationReflectionHelper.setPrivateValue(LootTable.class, table, false, "isFrozen");
                 event.getTable().getPool("main").removeEntry("astralsorcery:constellation_paper");
                 table.getPool(AstralSorcery.MODID.toLowerCase() + "chest_shrine").removeEntry("astralsorcery:constellation_paper");
             }
         }
+        /*
         if (!event.getTable().isFrozen()) {
             event.getTable().freeze();
         }
+        */
     }
 }

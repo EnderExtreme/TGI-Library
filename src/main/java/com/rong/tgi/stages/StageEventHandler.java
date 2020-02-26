@@ -47,7 +47,7 @@ public class StageEventHandler {
 
     public static final String stagePrefix = "stage.";
 
-    public static List<String> allConstellations = new ArrayList<String>(Arrays.asList(AEVITAS, ARMARA, DISCIDIA, EVORSIO, VICIO, BOOTES, FORNAX, HOROLOGIUM, LUCERNA, MINERALIS, OCTANS, PELOTRIO, ALCARA, GELU, ULTERIA, VORUX));
+    public static String[] allConstellations = { AEVITAS, ARMARA, DISCIDIA, EVORSIO, VICIO, BOOTES, FORNAX, HOROLOGIUM, LUCERNA, MINERALIS, OCTANS, PELOTRIO, ALCARA, GELU, ULTERIA, VORUX };
 
     // Set at the beginning
     @SubscribeEvent
@@ -86,9 +86,7 @@ public class StageEventHandler {
                     if (constellation == PELOTRIO || constellation == BOOTES) {
                         GameStageHelper.addStage(player, stagePrefix + PELOTRIO);
                         GameStageHelper.addStage(player, stagePrefix + BOOTES);
-                    } else {
-                        GameStageHelper.removeStage(player, stagePrefix + constellation);
-                    }
+                    } else GameStageHelper.removeStage(player, stagePrefix + constellation);
                 }
             } else if (destination == END) {
                 GameStageHelper.addStage(player, stagePrefix + VICIO);
@@ -100,9 +98,9 @@ public class StageEventHandler {
             } else if (destination == LOST_CITIES) {
                 GameStageHelper.addStage(player, stagePrefix + ALCARA);
                 GameStageHelper.addStage(player, stagePrefix + ULTERIA);
-            //} else if (destination == LIMBO) { TODO: substitute!
-                //GameStageHelper.addStage(player, stagePrefix + HOROLOGIUM);
-                //GameStageHelper.addStage(player, stagePrefix + GELU);
+            } else if (destination == MIDNIGHT) { //Was Limbo
+                GameStageHelper.addStage(player, stagePrefix + HOROLOGIUM);
+                GameStageHelper.addStage(player, stagePrefix + GELU);
             } else if (destination == TWILIGHT_FOREST) {
                 GameStageHelper.addStage(player, stagePrefix + BOOTES);
                 GameStageHelper.addStage(player, stagePrefix + AEVITAS);
@@ -113,9 +111,7 @@ public class StageEventHandler {
             } else if (destination == AETHER) {
                 GameStageHelper.addStage(player, stagePrefix + LUCERNA);
                 GameStageHelper.addStage(player, stagePrefix + AEVITAS);
-            } else if (destination == BETWEENLANDS) {
-                GameStageHelper.addStage(player, stagePrefix + OCTANS);
-            }
+            } else if (destination == BETWEENLANDS) GameStageHelper.addStage(player, stagePrefix + OCTANS);
         }
     }
 }

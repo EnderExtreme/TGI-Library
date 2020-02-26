@@ -7,6 +7,7 @@ public class DimensionIDs {
     public static final int ASTEROIDS = -30;
     public static final int MARS = -29;
     public static final int MOON = -28;
+    public static final int MIDNIGHT = -23;
     public static final int AR_SPACE_STATION = -2;
     public static final int NETHER = -1;
     public static final int OVERWORLD = 0;

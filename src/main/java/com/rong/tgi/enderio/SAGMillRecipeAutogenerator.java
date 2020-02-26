@@ -1,4 +1,4 @@
-package com.rong.tgi.enderio;
+/*package com.rong.tgi.enderio;
 
 import java.util.Arrays;
 
@@ -15,7 +15,7 @@ import net.minecraft.item.ItemStack;
 
 public class SAGMillRecipeAutogenerator {
 
-    /*
+
     public static void addRecipe() {
 
         MaterialType.ORE.getMats().forEach(material -> {
@@ -94,5 +94,6 @@ public class SAGMillRecipeAutogenerator {
                 }
             }
         }
-    } */
+    }
 }
+*/

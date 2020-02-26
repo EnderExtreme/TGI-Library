@@ -1,7 +1,8 @@
 package com.rong.tgi.projecte;
 
+import com.rong.tgi.Helper;
 import com.rong.tgi.TGILibrary;
-import com.rong.tgi.projecte.recipes.RecipeTest;
+import com.rong.tgi.projecte.recipes.ShapedDMOreRecipe;
 
 import moze_intel.projecte.PECore;
 import moze_intel.projecte.gameObjs.ObjHandler;
@@ -11,29 +12,32 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.registries.IForgeRegistry;
+import thaumcraft.api.items.ItemsTC;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class PEEventHandler {
 
-    public static boolean isSpecialGUIOpen = false;
+    public static boolean pedestalHasPS = false;
 
     @SubscribeEvent
-    public static void onRightClickingPedestalWithPS(PlayerInteractEvent.RightClickBlock event) {
-        if (event.getEntityPlayer().isSneaking())
-            return;
+    public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        if (event.getEntityPlayer().isSneaking()) return;
         TileEntity te = event.getWorld().getTileEntity(event.getPos());
         if (te != null && te instanceof DMPedestalTile) {
             DMPedestalTile tile = (DMPedestalTile) te;
             ItemStack stack = tile.getInventory().getStackInSlot(0);
             if (stack.getItem() == ObjHandler.philosStone) {
-                if (!event.getWorld().isRemote) {
-                    event.getEntityPlayer().openGui(PECore.instance, Constants.PHILOS_STONE_GUI, event.getWorld(), event.getHand() == EnumHand.MAIN_HAND ? 0 : 1, -1, -1);
-                    isSpecialGUIOpen = true;
+                World world = event.getWorld();
+                if (!world.isRemote) {
+                    event.getEntityPlayer().openGui(PECore.instance, Constants.PHILOS_STONE_GUI, world,
+                            event.getHand() == EnumHand.MAIN_HAND ? 0 : 1, -1, -1);
+                    pedestalHasPS = true;
                 }
             }
         }
@@ -41,8 +45,8 @@ public class PEEventHandler {
 
     @SubscribeEvent
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-        IForgeRegistry<IRecipe> registry = event.getRegistry();
-        registry.register(new RecipeTest().setRegistryName(TGILibrary.MODID + "testing_testing_123"));
+        ShapedDMOreRecipe.addRecipe(new ResourceLocation(TGILibrary.MODID, "magic_crystal"), Helper.makeStack("ebwizardry:crystal_block", 1), 512,
+                "XXX", "XAX", "XXX", 'X', ItemsTC.crystalEssence, 'A', Helper.makeStack("midnight:trenchstone", 0));
     }
 
 }

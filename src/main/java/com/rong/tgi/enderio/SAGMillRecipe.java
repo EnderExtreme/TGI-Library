@@ -1,3 +1,4 @@
+/*
 package com.rong.tgi.enderio;
 
 import java.util.Arrays;
@@ -23,3 +24,4 @@ public class SAGMillRecipe extends Recipe {
         return machineInputs.size() == 1 && getInputs()[0].isInput(machineInputs.get(0).item);
     }
 }
+ */

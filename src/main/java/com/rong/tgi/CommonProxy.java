@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.Lists;
-import com.rong.tgi.enderio.SAGMillRecipeAutogenerator;
+//import com.rong.tgi.enderio.SAGMillRecipeAutogenerator;
 import com.rong.tgi.entities.EntityManaPearl;
 import com.rong.tgi.thaumcraft.ThaumcraftAddon;
 
@@ -18,6 +18,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.DimensionManager;
@@ -32,10 +33,14 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ServerTickEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 
 @Mod.EventBusSubscriber
 public class CommonProxy {
+    
+    public static SoundEvent thatsHot = new SoundEvent(new ResourceLocation(TGILibrary.MODID, "thats_hot"));
+    public static SoundEvent itsReallyReallyCold = new SoundEvent(new ResourceLocation(TGILibrary.MODID, "its_really_really_cold"));
 
     @SubscribeEvent(priority = EventPriority.LOW)
     public static void recipesLow(Register<IRecipe> event) {
@@ -49,6 +54,12 @@ public class CommonProxy {
         // r.register(new BlockFluidLiquidStarlight());
         // GameRegistry.registerTileEntity(TileEntityLiquidStarlight.class, new
         // ResourceLocation(TGILibrary.MODID + "liquid_starlight"));
+    }
+    
+    @SubscribeEvent
+    public static void registerSounds(Register<SoundEvent> event) {
+        IForgeRegistry<SoundEvent> r = event.getRegistry();
+        r.registerAll(thatsHot, itsReallyReallyCold);
     }
 
     @SubscribeEvent

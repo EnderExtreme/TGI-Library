@@ -31,6 +31,9 @@ import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 import thaumcraft.common.lib.utils.Utils;
 
 public class ThaumcraftAddon {
+    
+    private static final ResourceLocation _NULL_ = new ResourceLocation("");
+    public static Item nightmareBook = Item.getByNameOrId("grimoireofgaia:weapon_book_nightmare");
 
     public static Aspect SPACE = new Aspect("Cosmos", 8388736, new Aspect[] { Aspect.FLIGHT, Aspect.DARKNESS }, new ResourceLocation(TGILibrary.MODID, "textures/aspects/cosmos.png"), 1);
 
@@ -71,28 +74,20 @@ public class ThaumcraftAddon {
         ThaumcraftApi.addCrucibleRecipe(new ResourceLocation(TGILibrary.MODID, "mana_ore_3"), new CrucibleRecipe("MANAORE", new ItemStack(Item.getByNameOrId("thermalfoundation:material"), 3, 136), "oreEndstoneIron", new AspectList().add(Aspect.ALCHEMY, 5)));
         ThaumcraftApi.addCrucibleRecipe(new ResourceLocation(TGILibrary.MODID, "mana_ore_4"), new CrucibleRecipe("MANAORE", new ItemStack(Item.getByNameOrId("thermalfoundation:material"), 1, 136), "oreGravelIron", new AspectList().add(Aspect.ALCHEMY, 2)));
 
-        ThaumcraftApi.addCrucibleRecipe(new ResourceLocation(TGILibrary.MODID, "imbued_marble"), new CrucibleRecipe("IMBUEDMARBLE", new ItemStack(Item.getByNameOrId("astralsorcery:blockmarble")), "stoneMarble", new AspectList().add(Aspect.MAGIC, 8).add(Aspect.ALCHEMY, 2)));
-        // ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation(TGILibrary.MODID
-        // + Constellations.discidia.getUnlocalizedName() + "ConstellationPaper"), new
-        // InfusionRecipe("DISCIDIAPAPER", null, 0, null, null, null));
+        //Subject to change, may add potions to this
+        ThaumcraftApi.addCrucibleRecipe(new ResourceLocation(TGILibrary.MODID, "imbued_marble"), new CrucibleRecipe("IMBUEDMARBLE", new ItemStack(Item.getByNameOrId("astralsorcery:blockmarble")), "stoneMarble", new AspectList().add(Aspect.MAGIC, 8).add(Aspect.ALCHEMY, 2)));      
 
+        //PortalGun stuff
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation(TGILibrary.MODID, "miniature_black_hole"), new InfusionRecipe("MINIATURE_BLACK_HOLE", new ItemStack(Item.getByNameOrId("portalgun:item_miniature_black_hole")), 4, new AspectList().add(Aspect.VOID, 120).add(Aspect.DARKNESS, 30), new ItemStack(Items.NETHER_STAR), new Object[] { "bEnderAirBottle", "bEnderAirBottle", "bEnderAirBottle", "bEnderAirBottle" }));
-
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation(TGILibrary.MODID, "portal_gun"), new InfusionRecipe("PORTALGUN", new ItemStack(Item.getByNameOrId("portalgun:item_portalgun"), 1, 0), 6, new AspectList().add(Aspect.CRAFT, 25).add(Aspect.VOID, 20).add(Aspect.ELDRITCH, 20).add(Aspect.MAGIC, 30), new ItemStack(Item.getByNameOrId("portalgun:item_miniature_black_hole")), new Object[] { "blockObsidian", "plateDenseStainlessSteel", "plateGold", new ItemStack(Items.ENDER_PEARL) }));
 
-        /*
-         * ThaumcraftApi.addArcaneCraftingRecipe(new ResourceLocation(TGILibrary.MODID,
-         * "alchemic_condenser"), new ShapedArcaneRecipe(new ResourceLocation(""),
-         * "ALCHEMICCONDENSER", 150, new AspectList() .add(Aspect.EARTH,
-         * 1).add(Aspect.WATER, 1).add(Aspect.ENTROPY, 1).add(Aspect.FIRE,
-         * 1).add(Aspect.ORDER, 1), new
-         * ItemStack(Item.getByNameOrId("rustic:condenser")), new Object[] { " F ",
-         * "FBF", "FCF", 'F', MetaItems.FIRECLAY_BRICK.getStackForm(), 'B',
-         * Items.BUCKET, 'C', "terracotta"}));
-         */
+        //Rustic stuff
+        ThaumcraftApi.addArcaneCraftingRecipe(new ResourceLocation(TGILibrary.MODID, "alchemic_condenser"), new ShapedArcaneRecipe(_NULL_, "ALCHEMICCONDENSER", 100, new AspectList() .add(Aspect.EARTH, 1).add(Aspect.WATER, 1).add(Aspect.ENTROPY, 1).add(Aspect.FIRE, 1).add(Aspect.ORDER, 1), new ItemStack(Item.getByNameOrId("rustic:condenser")), new Object[] { " F ", "RBR", "RCR", 'F', "ingotBrick", 'B', new ItemStack(Item.getByNameOrId("pyrotech:tank"), 1, 1), 'C', "moonstone", 'F', new ItemStack(Item.getByNameOrId("pyrotech:material"), 1, 5)}));
+        ThaumcraftApi.addArcaneCraftingRecipe(new ResourceLocation(TGILibrary.MODID, "advanced_alchemic_condenser"), new ShapedArcaneRecipe(_NULL_, "ADVANCEDALCHEMICCONDENSER", 200, new AspectList().add(Aspect.EARTH, 1).add(Aspect.WATER, 1).add(Aspect.ENTROPY, 1).add(Aspect.FIRE, 1).add(Aspect.ORDER, 1), new ItemStack(Item.getByNameOrId("rustic:condenser_advanced")), new Object[] { " F ", "FBF", "FCF", 'F', "ingotBrickNetherGlazed", 'B', new ItemStack(BlocksTC.jarNormal), 'C', Item.getByNameOrId("enderio:block_reinforced_obsidian") }));
 
-        ThaumcraftApi.addArcaneCraftingRecipe(new ResourceLocation(TGILibrary.MODID, "advanced_alchemic_condenser"), new ShapedArcaneRecipe(new ResourceLocation(""), "ADVANCEDALCHEMICCONDENSER", 300, new AspectList().add(Aspect.EARTH, 1).add(Aspect.WATER, 1).add(Aspect.ENTROPY, 1).add(Aspect.FIRE, 1).add(Aspect.ORDER, 1), new ItemStack(Item.getByNameOrId("rustic:condenser_advanced")), new Object[] { " F ", "FBF", "FCF", 'F', "ingotConcentratedHellfire", 'B', new ItemStack(BlocksTC.jarNormal), 'C', new ItemStack(Blocks.MAGMA) }));
-
+        //Progression stuff
+        //Use custom book as catalyst!
+        //ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation(TGILibrary.MODID, "nightmare_midnight_book"), new InfusionRecipe(_NULL_, "NIGHTMARE", new ItemStack(nightmareBook), 2, new AspectList().add(Aspect.VOID, 10).add(Aspect.ELDRITCH, 10).add(Aspect.DESIRE, 20).add(Aspect.MIND, 20));
     }
 
     private static void appendAspects(ItemStack stack, AspectList toAdd) {

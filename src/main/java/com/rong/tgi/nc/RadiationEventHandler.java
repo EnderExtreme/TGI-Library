@@ -19,6 +19,7 @@ public class RadiationEventHandler {
     public static final double ASTRAL = 0.0000000932D;
     public static final double CLUSTER = 0.000000000842D;
 
+    /*
     @SubscribeEvent
     public static void addRadiation(TickEvent.WorldTickEvent event) {
         World world = event.world;
@@ -33,7 +34,6 @@ public class RadiationEventHandler {
     }
 
     public static void addRadSources() {
-        /*      
         for (Material m : Material.MATERIAL_REGISTRY) {
             if (m.hasFlag(DustMaterial.MatFlags.GENERATE_ORE)) {
                 if (m.isRadioactive()) {
@@ -43,7 +43,7 @@ public class RadiationEventHandler {
                 }
             }
         }
-        */
     }
+    */
 
 }

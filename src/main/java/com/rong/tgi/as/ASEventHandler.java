@@ -34,6 +34,7 @@ public class ASEventHandler {
         }
     }
 
+    /*
     @SubscribeEvent
     public static void onStarlightInWorldCrafting(ItemEvent event) {
         if (event.getEntity().world == null)
@@ -72,4 +73,5 @@ public class ASEventHandler {
             RadiationHelper.addToSourceRadiation(source, RadiationEventHandler.ASTRAL);
         }
     }
+    */
 }

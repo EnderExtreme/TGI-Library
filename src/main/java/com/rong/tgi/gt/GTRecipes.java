@@ -27,9 +27,6 @@ import zmaster587.advancedRocketry.api.AdvancedRocketryAPI;
 import zmaster587.advancedRocketry.api.AdvancedRocketryItems;
 import zmaster587.advancedRocketry.armor.ItemSpaceArmor;
 
-import static muramasa.gtu.api.data.RecipeMaps.*;
-import static muramasa.gtu.api.data.Materials.*;
-
 public class GTRecipes {
 
     /*
